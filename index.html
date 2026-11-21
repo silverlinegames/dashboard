@@ -251,6 +251,36 @@
       box-shadow: 0 4px 14px rgba(15, 35, 66, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.14);
     }
 
+    /* Pestañas de la pantalla de proyectos (Crear / Unirse) */
+    .entry-tab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #94A3B8;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .entry-tab:hover { color: #FFFFFF; background: rgba(255, 255, 255, 0.05); }
+    .entry-tab.active {
+      color: #FFFFFF;
+      background-color: #1E3A8A;
+      border-color: #2B4C9B;
+      box-shadow: 0 4px 14px rgba(15, 35, 66, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+    }
+
+    /* Código de invitación seleccionable en el modal */
+    .selectable-code {
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
     /* Tooltip sutil */
     .tool-btn[data-tip]:hover::after {
       content: attr(data-tip);
@@ -374,13 +404,14 @@
         <input
           id="board-title-input"
           type="text"
-          value="Sprint & Arquitectura — Dev Team"
-          aria-label="Título del pizarrón"
+          value="Proyecto sin título"
+          aria-label="Nombre del proyecto"
           class="bg-transparent text-sm sm:text-[15px] font-semibold text-white focus:outline-none focus:bg-white/[0.05] px-1.5 py-0.5 rounded-md truncate w-44 sm:w-64 md:w-72 transition-colors"
         />
         <div class="flex items-center gap-1.5 px-1.5">
           <span id="sync-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span id="sync-status-text" class="text-[11px] font-mono text-[#94A3B8] truncate">En vivo • Todo guardado</span>
+          <button id="project-code-chip" type="button" title="Copiar código de invitación del proyecto" class="hidden font-mono text-[10px] font-semibold text-[#93C5FD] bg-[#1E3A8A]/50 hover:bg-[#1E3A8A] border border-[#2B4C9B]/60 rounded-md px-1.5 py-px transition-colors cursor-pointer shrink-0"></button>
         </div>
       </div>
     </div>
@@ -390,11 +421,11 @@
       <!-- Lista de avatares en vivo -->
       <div id="live-avatars" class="flex items-center -space-x-2"></div>
 
-      <!-- Botón Invitar Equipo (copia enlace privado de sala) -->
+      <!-- Botón Invitar (abre el código de invitación del proyecto) -->
       <button
         id="invite-team-btn"
         type="button"
-        title="Copiar enlace privado de sala para tu equipo"
+        title="Código de invitación del proyecto"
         class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1E3A8A] hover:bg-[#2563EB] border border-[#2B4C9B] text-xs font-semibold text-white shadow-md transition-all cursor-pointer"
       >
         <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -465,6 +496,14 @@
               <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M7 16h10" stroke-linecap="round"/>
             </svg>
             <span>Atajos de teclado</span>
+          </button>
+
+          <button id="opt-switch-project" type="button" class="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-medium text-white hover:bg-white/[0.06] rounded-xl transition-colors text-left">
+            <svg class="w-4 h-4 text-[#60A5FA] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 14l4-4m0 0h-3.5m3.5 0v3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Cambiar de proyecto</span>
           </button>
 
           <div class="my-1.5 h-px bg-white/10"></div>
@@ -616,10 +655,10 @@
   </div>
 
   <!-- ========================================================================
-       6. MODAL DE ACCESO INSTANTÁNEO (SOLO NOMBRE + SALA PRIVADA)
+       6. PANTALLA DE PROYECTOS (PRIMERO CREAR PROYECTO / UNIRSE CON CÓDIGO)
        ======================================================================== -->
-  <div id="entry-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#08090B]/85 backdrop-blur-md">
-    <div class="glass-panel w-full max-w-md rounded-3xl p-7 animate-modal">
+  <div id="entry-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#08090B]/85 backdrop-blur-md overflow-y-auto">
+    <div class="glass-panel w-full max-w-md rounded-3xl p-7 animate-modal my-6">
       <div class="flex items-center gap-3 mb-4">
         <div class="w-10 h-10 rounded-2xl bg-[#1E3A8A] border border-[#2B4C9B] flex items-center justify-center shadow-lg shrink-0">
           <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -630,64 +669,180 @@
           </svg>
         </div>
         <div>
-          <span class="text-[11px] font-mono uppercase tracking-wider text-[#60A5FA]">Workspace Privado</span>
+          <span class="text-[11px] font-mono uppercase tracking-wider text-[#60A5FA]">Proyectos de Equipo</span>
           <h1 class="text-xl font-bold text-white leading-tight">DevBoard en Vivo</h1>
         </div>
       </div>
 
-      <div>
-        <p class="text-sm text-[#94A3B8] leading-relaxed mb-5">
-          Ingresa tu nombre para colaborar en tiempo real con tu equipo de desarrollo. Sin cuentas ni contraseñas.
-        </p>
+      <p class="text-sm text-[#94A3B8] leading-relaxed mb-5">
+        Primero crea un <span class="text-white font-medium">proyecto</span>: se genera un código de
+        invitación para que tu equipo se una, como si fuera un código de sala. Cada cambio de cualquier
+        persona se guarda y se sincroniza al instante en todos los dispositivos.
+      </p>
 
-        <div class="mb-4 flex items-center justify-between px-3.5 py-2 rounded-xl bg-[#0B0D11] border border-white/10 text-xs">
-          <div class="flex items-center gap-2 min-w-0">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
-            <span class="text-[#94A3B8]">Sala privada:</span>
-            <span id="entry-room-badge" class="font-mono font-semibold text-white truncate">equipo-dev</span>
-          </div>
-          <button id="toggle-room-edit-btn" type="button" class="text-[11px] font-medium text-[#60A5FA] hover:text-white ml-2 shrink-0 cursor-pointer">
-            Cambiar
-          </button>
-        </div>
+      <!-- Pestañas: Crear / Unirse -->
+      <div class="grid grid-cols-2 gap-1.5 p-1.5 rounded-2xl bg-[#0B0D11] border border-white/10 mb-5" role="tablist" aria-label="Acceso a proyectos">
+        <button id="tab-create-btn" type="button" role="tab" class="entry-tab active">
+          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 5v14M5 12h14" stroke-linecap="round" />
+          </svg>
+          Crear proyecto
+        </button>
+        <button id="tab-join-btn" type="button" role="tab" class="entry-tab">
+          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Unirme con código
+        </button>
+      </div>
 
-        <div id="room-edit-box" class="hidden mb-4">
-          <label for="room-code-input" class="block text-[11px] font-mono text-[#94A3B8] mb-1">Código de sala del equipo</label>
+      <!-- Formulario: CREAR PROYECTO -->
+      <form id="create-project-form" class="space-y-3.5" novalidate>
+        <div>
+          <label for="project-name-input" class="block text-[11px] font-mono text-[#94A3B8] mb-1.5">Nombre del proyecto</label>
           <input
-            id="room-code-input"
+            id="project-name-input"
+            type="text"
+            maxlength="48"
+            autocomplete="off"
+            placeholder="ej. EDR — Motor del juego"
+            class="w-full px-4 py-3 rounded-2xl bg-[#0B0D11] border border-white/10 text-white placeholder-[#64748B] text-sm focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#1E3A8A]/50 transition-all"
+          />
+        </div>
+        <div>
+          <label for="creator-name-input" class="block text-[11px] font-mono text-[#94A3B8] mb-1.5">Tu nombre</label>
+          <input
+            id="creator-name-input"
+            type="text"
+            maxlength="28"
+            autocomplete="off"
+            placeholder="Tu nombre..."
+            class="w-full px-4 py-3 rounded-2xl bg-[#0B0D11] border border-white/10 text-white placeholder-[#64748B] text-sm focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#1E3A8A]/50 transition-all"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full py-3.5 px-5 rounded-2xl bg-[#1E3A8A] hover:bg-[#2563EB] border border-[#2B4C9B] text-white font-semibold text-sm shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 5v14M5 12h14" stroke-linecap="round" />
+          </svg>
+          <span>Crear proyecto</span>
+        </button>
+        <p class="text-[11px] text-[#64748B] text-center leading-relaxed">
+          Se generará un código de invitación único para tu equipo.
+        </p>
+      </form>
+
+      <!-- Formulario: UNIRSE CON CÓDIGO -->
+      <form id="join-project-form" class="hidden space-y-3.5" novalidate>
+        <div>
+          <label for="join-code-input" class="block text-[11px] font-mono text-[#94A3B8] mb-1.5">Código de invitación</label>
+          <input
+            id="join-code-input"
             type="text"
             maxlength="32"
             autocomplete="off"
-            placeholder="ej. equipo-dev"
-            class="w-full px-3.5 py-2.5 rounded-xl bg-[#0B0D11] border border-white/10 text-white font-mono text-xs focus:outline-none focus:border-[#2563EB]"
+            spellcheck="false"
+            placeholder="ej. k7m2-9qx4"
+            class="w-full px-4 py-3 rounded-2xl bg-[#0B0D11] border border-white/10 text-white placeholder-[#64748B] font-mono text-sm tracking-wider focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#1E3A8A]/50 transition-all"
           />
         </div>
+        <div>
+          <label for="joiner-name-input" class="block text-[11px] font-mono text-[#94A3B8] mb-1.5">Tu nombre</label>
+          <input
+            id="joiner-name-input"
+            type="text"
+            maxlength="28"
+            autocomplete="off"
+            placeholder="Tu nombre..."
+            class="w-full px-4 py-3 rounded-2xl bg-[#0B0D11] border border-white/10 text-white placeholder-[#64748B] text-sm focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#1E3A8A]/50 transition-all"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full py-3.5 px-5 rounded-2xl bg-[#1E3A8A] hover:bg-[#2563EB] border border-[#2B4C9B] text-white font-semibold text-sm shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <span>Entrar al proyecto</span>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </form>
 
-        <form id="entry-form" class="space-y-4">
-          <div>
-            <label for="username-input" class="sr-only">Tu nombre</label>
-            <input
-              id="username-input"
-              type="text"
-              maxlength="28"
-              required
-              autocomplete="off"
-              placeholder="Tu nombre..."
-              class="w-full px-4 py-3.5 rounded-2xl bg-[#0B0D11] border border-white/10 text-white placeholder-[#64748B] text-base focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#1E3A8A]/50 transition-all"
-            />
-          </div>
-
-          <button
-            type="submit"
-            class="w-full py-3.5 px-5 rounded-2xl bg-[#1E3A8A] hover:bg-[#2563EB] border border-[#2B4C9B] text-white font-semibold text-sm shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <span>Entrar al tablero</span>
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-              <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </form>
+      <!-- Proyectos guardados en este dispositivo -->
+      <div id="saved-projects-section" class="hidden mt-6 pt-5 border-t border-white/10">
+        <span class="block text-[11px] font-mono uppercase tracking-wider text-[#94A3B8] mb-3">Mis proyectos</span>
+        <div id="saved-projects-list" class="space-y-2 max-h-56 overflow-y-auto pr-1"></div>
       </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       6-B. MODAL DE INVITACIÓN (CÓDIGO DEL PROYECTO, TIPO CÓDIGO DE SALA)
+       ======================================================================== -->
+  <div id="invite-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#08090B]/75 backdrop-blur-sm">
+    <div class="glass-panel w-full max-w-sm rounded-3xl p-6 animate-modal">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-base font-bold text-white">Invitar al proyecto</h3>
+        <button id="close-invite-btn" type="button" class="p-1.5 rounded-lg text-[#94A3B8] hover:text-white hover:bg-white/10">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <p class="text-xs text-[#94A3B8] leading-relaxed mb-4">
+        Comparte este código con tu equipo: quien lo escriba en la pantalla de entrada entrará a este
+        mismo tablero en vivo. Todo lo que edite cualquiera se guarda automáticamente.
+      </p>
+
+      <div class="rounded-2xl bg-[#0B0D11] border border-[#2B4C9B]/50 px-4 py-5 text-center mb-4">
+        <span class="block text-[10px] font-mono uppercase tracking-widest text-[#94A3B8]">Código de invitación</span>
+        <div id="invite-code-display" class="selectable-code font-mono text-3xl font-bold text-white tracking-[0.12em] mt-1.5">----</div>
+        <div id="invite-project-name" class="text-xs text-[#94A3B8] mt-2 truncate"></div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <button id="copy-invite-code-btn" type="button" class="py-2.5 rounded-xl bg-[#1E3A8A] hover:bg-[#2563EB] border border-[#2B4C9B] text-white text-xs font-semibold transition-colors cursor-pointer">
+          Copiar código
+        </button>
+        <button id="copy-invite-link-btn" type="button" class="py-2.5 rounded-xl bg-[#151820] hover:bg-[#1C212C] border border-white/10 text-white text-xs font-semibold transition-colors cursor-pointer">
+          Copiar enlace
+        </button>
+      </div>
+      <button id="share-invite-btn" type="button" class="hidden w-full mt-2 py-2.5 rounded-xl bg-[#151820] hover:bg-[#1C212C] border border-white/10 text-white text-xs font-semibold transition-colors cursor-pointer">
+        Compartir...
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       6-C. MODAL DE PERFIL PROPIO (CAMBIAR NOMBRE SIN SALIR DEL PROYECTO)
+       ======================================================================== -->
+  <div id="profile-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#08090B]/75 backdrop-blur-sm">
+    <div class="glass-panel w-full max-w-xs rounded-3xl p-6 animate-modal">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-base font-bold text-white">Tu perfil</h3>
+        <button id="close-profile-btn" type="button" class="p-1.5 rounded-lg text-[#94A3B8] hover:text-white hover:bg-white/10">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <form id="profile-form" class="space-y-4">
+        <div>
+          <label for="profile-name-input" class="block text-[11px] font-mono text-[#94A3B8] mb-1.5">Tu nombre</label>
+          <input
+            id="profile-name-input"
+            type="text"
+            maxlength="28"
+            autocomplete="off"
+            placeholder="Tu nombre..."
+            class="w-full px-4 py-3 rounded-2xl bg-[#0B0D11] border border-white/10 text-white placeholder-[#64748B] text-sm focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#1E3A8A]/50 transition-all"
+          />
+        </div>
+        <button type="submit" class="w-full py-3 rounded-2xl bg-[#1E3A8A] hover:bg-[#2563EB] border border-[#2B4C9B] text-white font-semibold text-sm shadow-lg transition-all cursor-pointer">
+          Guardar
+        </button>
+      </form>
     </div>
   </div>
 
@@ -850,8 +1005,8 @@
       tombstones: new Map(),
       boardClearedAt: 0,
 
-      boardTitle: 'Sprint & Arquitectura — Dev Team',
-      roomCode: 'equipo-dev'
+      boardTitle: 'Proyecto sin título',
+      roomCode: ''
     };
 
     /* ------------------------------------------------------------------------
@@ -906,24 +1061,297 @@
     };
 
     function sanitizeRoomSlug(raw) {
-      const cleaned = String(raw || '')
+      return String(raw || '')
         .toLowerCase()
         .trim()
         .replace(/[^a-z0-9_-]+/g, '-')
         .replace(/^-+|-+$/g, '');
-      return cleaned || 'equipo-dev';
     }
 
-    function resolveInitialRoomCode() {
-      const params = new URLSearchParams(window.location.search);
-      const fromUrl = params.get('sala');
-      const code = sanitizeRoomSlug(fromUrl || 'equipo-dev');
-      state.roomCode = code;
-      const badge = document.getElementById('entry-room-badge');
-      const roomInp = document.getElementById('room-code-input');
-      if (badge) badge.textContent = code;
-      if (roomInp) roomInp.value = code;
-      return code;
+    // Código de proyecto recibido por enlace (?sala=... o ?proyecto=...)
+    function resolveInitialProjectFromUrl() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const fromUrl = params.get('sala') || params.get('proyecto');
+        return sanitizeRoomSlug(fromUrl);
+      } catch {
+        return '';
+      }
+    }
+
+    /* ------------------------------------------------------------------------
+       PROYECTOS: PRIMERO SE CREA EL PROYECTO, DENTRO SE INVITA CON CÓDIGO
+       ------------------------------------------------------------------------
+       El flujo es: 1) se crea (o se abre) un PROYECTO; 2) ya dentro del
+       proyecto se invita al equipo con un CÓDIGO DE INVITACIÓN, como si
+       fuera un código de sala. El código ES la sala de sincronización
+       (temas MQTT), así que todos los que entren con el mismo código
+       comparten el mismo tablero guardado, en vivo entre dispositivos. */
+
+    const PROJECTS_STORAGE_KEY = 'devboard_projects';
+    const PROJECT_CODE_CHARS = 'abcdefghjkmnpqrstuvwxyz23456789'; // sin caracteres ambiguos (0/o, 1/i/l)
+
+    function generateProjectCode() {
+      const pick = (n) => Array.from({ length: n }, () =>
+        PROJECT_CODE_CHARS[Math.floor(Math.random() * PROJECT_CODE_CHARS.length)]).join('');
+      return `${pick(4)}-${pick(4)}`;
+    }
+
+    function loadProjectList() {
+      try {
+        const raw = localStorage.getItem(PROJECTS_STORAGE_KEY);
+        const list = raw ? JSON.parse(raw) : [];
+        return Array.isArray(list) ? list.filter((p) => p && p.code) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveProjectList(list) {
+      try { localStorage.setItem(PROJECTS_STORAGE_KEY, JSON.stringify(list.slice(0, 40))); } catch {}
+    }
+
+    function rememberProject(code, name) {
+      if (!code) return;
+      const list = loadProjectList();
+      const existing = list.find((p) => p.code === code);
+      saveProjectList([
+        {
+          code,
+          name: (name && String(name).trim()) || (existing && existing.name) || 'Proyecto sin título',
+          createdAt: existing ? existing.createdAt : Date.now(),
+          lastOpenedAt: Date.now()
+        },
+        ...list.filter((p) => p.code !== code)
+      ]);
+      renderSavedProjectsList(); // mantener la lista visible siempre al día
+    }
+
+    function forgetProject(code) {
+      saveProjectList(loadProjectList().filter((p) => p.code !== code));
+    }
+
+    // El título del tablero ES el nombre del proyecto: mantener la lista al día
+    function updateStoredProjectName(code, name) {
+      if (!code || !name) return;
+      const list = loadProjectList();
+      const item = list.find((p) => p.code === code);
+      if (item && item.name !== name) {
+        item.name = name;
+        saveProjectList(list);
+        renderSavedProjectsList();
+      }
+    }
+
+    function timeAgoShort(ts) {
+      const diff = Date.now() - (ts || 0);
+      if (diff < 60e3) return 'hace instantes';
+      if (diff < 3600e3) return `hace ${Math.floor(diff / 60e3)} min`;
+      if (diff < 86400e3) return `hace ${Math.floor(diff / 3600e3)} h`;
+      if (diff < 7 * 86400e3) return `hace ${Math.floor(diff / 86400e3)} días`;
+      try { return new Date(ts || Date.now()).toLocaleDateString(); } catch { return ''; }
+    }
+
+    function setEntryTab(tab) {
+      const isCreate = tab === 'create';
+      document.getElementById('create-project-form').classList.toggle('hidden', !isCreate);
+      document.getElementById('join-project-form').classList.toggle('hidden', isCreate);
+      document.getElementById('tab-create-btn').classList.toggle('active', isCreate);
+      document.getElementById('tab-join-btn').classList.toggle('active', !isCreate);
+    }
+
+    function renderSavedProjectsList() {
+      const section = document.getElementById('saved-projects-section');
+      const listEl = document.getElementById('saved-projects-list');
+      if (!section || !listEl) return;
+      const list = loadProjectList();
+      section.classList.toggle('hidden', list.length === 0);
+      listEl.innerHTML = '';
+      list.forEach((p) => {
+        const item = document.createElement('div');
+        item.className = 'group w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl bg-[#0B0D11] hover:bg-[#16223E] border border-white/[0.06] hover:border-[#2B4C9B] transition-all cursor-pointer text-left';
+        item.innerHTML = `
+          <div class="w-9 h-9 rounded-xl bg-[#1E3A8A]/60 border border-[#2B4C9B]/60 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-[#93C5FD]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-semibold text-white truncate">${escapeHtml(p.name)}</div>
+            <div class="flex items-center gap-1.5 text-[11px] min-w-0">
+              <span class="font-mono text-[#60A5FA]">${escapeHtml(p.code)}</span>
+              <span class="text-[#475569]">•</span>
+              <span class="text-[#64748B] truncate">${timeAgoShort(p.lastOpenedAt)}</span>
+            </div>
+          </div>
+          <button type="button" data-remove="1" title="Quitar de mi lista" class="p-1.5 rounded-lg text-[#64748B] hover:text-rose-400 hover:bg-rose-500/10 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all shrink-0 cursor-pointer">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
+          </button>`;
+        item.addEventListener('click', () => {
+          let savedName = '';
+          try { savedName = localStorage.getItem('devboard_username') || ''; } catch {}
+          if (!savedName) {
+            savedName = (document.getElementById('joiner-name-input').value || '').trim();
+          }
+          if (savedName) {
+            if (enterProject(p.code, { userName: savedName })) {
+              document.getElementById('entry-modal').classList.add('hidden');
+            }
+          } else {
+            setEntryTab('join');
+            document.getElementById('join-code-input').value = p.code;
+            document.getElementById('joiner-name-input').focus();
+          }
+        });
+        item.querySelector('[data-remove]').addEventListener('click', (e) => {
+          e.stopPropagation();
+          forgetProject(p.code);
+          renderSavedProjectsList();
+          showToast('Proyecto quitado de tu lista');
+        });
+        listEl.appendChild(item);
+      });
+    }
+
+    function updateProjectChip() {
+      const chip = document.getElementById('project-code-chip');
+      if (!chip) return;
+      if (state.entered && state.roomCode) {
+        chip.textContent = state.roomCode;
+        chip.classList.remove('hidden');
+      } else {
+        chip.classList.add('hidden');
+      }
+    }
+
+    function openProjectsHome(opts = {}) {
+      const modal = document.getElementById('entry-modal');
+      renderSavedProjectsList();
+      modal.classList.remove('hidden');
+      try {
+        const savedName = localStorage.getItem('devboard_username');
+        if (savedName) {
+          document.getElementById('creator-name-input').value = savedName;
+          document.getElementById('joiner-name-input').value = savedName;
+        }
+      } catch {}
+      if (opts.tab === 'join') {
+        setEntryTab('join');
+        if (typeof opts.joinCode === 'string') {
+          document.getElementById('join-code-input').value = opts.joinCode;
+        }
+        setTimeout(() => document.getElementById('joiner-name-input').focus(), 60);
+      } else {
+        setEntryTab('create');
+        setTimeout(() => document.getElementById('project-name-input').focus(), 60);
+      }
+    }
+
+    // Entrar (crear o abrir) un proyecto: resetea el tablero anterior, carga
+    // el respaldo local, conecta la red en vivo del código y lo guarda en la
+    // lista de proyectos del dispositivo.
+    function enterProject(rawCode, opts = {}) {
+      const slug = sanitizeRoomSlug(rawCode);
+      const userName = String(opts.userName || '').trim();
+      if (!userName) return false;
+      if (!slug) {
+        showToast('Escribe un código de invitación válido');
+        return false;
+      }
+
+      state.userName = userName;
+      state.entered = true;
+      state.roomCode = slug;
+
+      // Reset del tablero anterior
+      state.elements.clear();
+      state.selectedIds.clear();
+      state.draggingIds.clear();
+      state.presence.clear();
+      state.tombstones.clear();
+      state.boardClearedAt = 0;
+      state.editingId = null;
+      document.getElementById('elements-layer').innerHTML = '';
+      renderSvgLayer();
+      updateContextBar();
+
+      // Título inicial = nombre del proyecto (o el del respaldo si ya existía)
+      state.boardTitle = (opts.title && String(opts.title).trim()) || 'Proyecto sin título';
+      const titleInput = document.getElementById('board-title-input');
+      titleInput.value = state.boardTitle;
+
+      // Respaldo local de este proyecto (si ya se conocía en el dispositivo)
+      loadRoomSnapshotLocal(slug);
+      if (opts.isNewProject) {
+        state.boardTitle = (opts.title && String(opts.title).trim()) || 'Proyecto sin título';
+        titleInput.value = state.boardTitle;
+        saveRoomSnapshotLocal();
+      }
+
+      // Perfil y UI
+      document.getElementById('my-name-label').textContent = userName;
+      const badge = document.getElementById('my-avatar-badge');
+      badge.textContent = getInitials(userName);
+      badge.style.backgroundColor = state.userColor;
+      try { localStorage.setItem('devboard_username', userName); } catch {}
+      rememberProject(slug, state.boardTitle);
+      updateProjectChip();
+
+      // Red en vivo del proyecto (el código de invitación ES la sala)
+      connectRoomNetwork(slug);
+      announcePresenceToRoom();
+      publishPresence(0, 0, true);
+      renderLiveAvatars();
+      updateLiveStatus();
+      if (state.elements.size > 0) fitViewToContent();
+
+      if (opts.isNewProject) {
+        markBoardDirty(); // publica el snapshot retenido del proyecto nuevo
+        openInviteModal();
+        showToast('Proyecto creado • Comparte el código con tu equipo');
+      } else {
+        showToast(`Proyecto ${slug} • Sincronizando...`);
+      }
+      return true;
+    }
+
+    /* ------------------------------------------------------------------------
+       INVITACIÓN: EL CÓDIGO DEL PROYECTO FUNCIONA COMO CÓDIGO DE SALA
+       ------------------------------------------------------------------------ */
+
+    function openInviteModal() {
+      if (!state.entered) return;
+      document.getElementById('invite-code-display').textContent = state.roomCode;
+      document.getElementById('invite-project-name').textContent = state.boardTitle;
+      document.getElementById('invite-modal').classList.remove('hidden');
+    }
+
+    function buildInviteLink() {
+      let shareUrl = window.location.href;
+      try {
+        const u = new URL(window.location.href);
+        u.searchParams.set('sala', state.roomCode);
+        shareUrl = u.toString();
+      } catch {}
+      return shareUrl;
+    }
+
+    async function copyTextWithToast(text, okMsg) {
+      let ok = false;
+      try {
+        await navigator.clipboard.writeText(text);
+        ok = true;
+      } catch {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = text;
+        tempInput.style.position = 'fixed';
+        tempInput.style.opacity = '0';
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        try { ok = document.execCommand('copy'); } catch {}
+        tempInput.remove();
+      }
+      showToast(ok ? okMsg : text);
     }
 
     function updateUrlRoomParam(code) {
@@ -976,8 +1404,9 @@
     }
 
     function connectRoomNetwork(roomCode) {
-      teardownRoomNetwork();
       const slug = sanitizeRoomSlug(roomCode);
+      if (!slug) return; // sin código de proyecto no hay sala a la que conectarse
+      teardownRoomNetwork();
       state.roomCode = slug;
       updateUrlRoomParam(slug);
       // v3: tema nuevo para no chocar con clientes antiguos (protocolo incompatible)
@@ -993,7 +1422,7 @@
       }
 
       if (typeof window.mqtt === 'undefined' || typeof window.mqtt.connect !== 'function') {
-        setSyncStatus('offline', 'Sin red de sala • Guardado local');
+        setSyncStatus('offline', 'Sin red • Guardado local');
         return;
       }
       MQTT_BROKERS.forEach((_, i) => connectBroker(i));
@@ -1084,7 +1513,7 @@
         link.connected = false;
         link.connecting = false;
         if (hadOthers && state.entered && !anyBrokerConnected()) {
-          showToast('Conexión de sala interrumpida • Reintentando...');
+          showToast('Conexión del proyecto interrumpida • Reintentando...');
         }
         scheduleBrokerReconnect(i, myGen);
         updateLiveStatus();
@@ -1194,6 +1623,9 @@
         scheduleRetainedSnapshot(); // reintentar cuando haya red
         return;
       }
+      // Retener el snapshot en TODOS los brokers conectados: quien entre por
+      // cualquier broker (y aunque uno haya purgado su mensaje retenido)
+      // recibe el último estado guardado del proyecto.
       publishRoomMessage({
         type: 'SNAPSHOT',
         title: state.boardTitle,
@@ -1201,7 +1633,7 @@
         tombstones: Array.from(state.tombstones.entries()),
         clearedAt: state.boardClearedAt || 0,
         savedAt: Date.now()
-      }, { qos: 1, fanout: false, retain: true });
+      }, { qos: 1, fanout: true, retain: true });
     }
 
     function startPresenceLoop() {
@@ -1333,6 +1765,7 @@
           const newTitle = msg.boardTitle || msg.title;
           if (newTitle) {
             state.boardTitle = newTitle;
+            updateStoredProjectName(state.roomCode, newTitle);
             const titleInput = document.getElementById('board-title-input');
             if (titleInput && document.activeElement !== titleInput) {
               titleInput.value = newTitle;
@@ -1424,6 +1857,7 @@
         case 'UPDATE_TITLE': {
           if (msg.title) {
             state.boardTitle = msg.title;
+            updateStoredProjectName(state.roomCode, msg.title);
             const titleInput = document.getElementById('board-title-input');
             if (titleInput && document.activeElement !== titleInput) {
               titleInput.value = msg.title;
@@ -1438,9 +1872,9 @@
       if (!state.entered) return;
       const total = state.presence.size + (state.presence.has(state.sessionId) ? 0 : 1);
       if (anyBrokerConnected()) {
-        setSyncStatus('live', total > 1 ? `En vivo • ${total} en sala` : 'En vivo • Solo tú en la sala');
+        setSyncStatus('live', total > 1 ? `En vivo • ${total} en el proyecto` : 'En vivo • Solo tú • Todo guardado');
       } else {
-        setSyncStatus('syncing', `Conectando sala ${state.roomCode}...`);
+        setSyncStatus('syncing', `Conectando • ${state.roomCode}`);
       }
     }
 
@@ -1478,7 +1912,7 @@
           brokers[name] = l.connected ? 'conectado' : (l.connecting ? 'conectando' : 'esperando');
         });
         return {
-          sala: state.roomCode,
+          proyecto: state.roomCode,
           conectado: anyBrokerConnected(),
           brokersConectados: connectedBrokerCount() + '/' + MQTT_BROKERS.length,
           brokers,
@@ -1630,6 +2064,7 @@
 
     function updateBoardTitle(newTitle) {
       state.boardTitle = newTitle;
+      updateStoredProjectName(state.roomCode, newTitle);
       saveRoomSnapshotLocal();
       emitNetworkMessage({
         type: 'UPDATE_TITLE',
@@ -1643,6 +2078,17 @@
     // Avisar salida inmediata (además del Last-Will de cada broker)
     window.addEventListener('beforeunload', () => {
       try {
+        // Último esfuerzo: dejar el snapshot retenido al día si hay cambios pendientes
+        if (netBus.boardDirty && netBus.snapshotTopic) {
+          publishRoomMessage({
+            type: 'SNAPSHOT',
+            title: state.boardTitle,
+            elements: Array.from(state.elements.values()),
+            tombstones: Array.from(state.tombstones.entries()),
+            clearedAt: state.boardClearedAt || 0,
+            savedAt: Date.now()
+          }, { qos: 1, fanout: true, retain: true });
+        }
         const payload = JSON.stringify({ type: 'PEER_LEFT', sessionId: state.sessionId, senderSessionId: state.sessionId });
         netBus.links.forEach((l) => {
           if (l.connected && l.client) {
@@ -3174,29 +3620,6 @@
       reader.readAsText(file);
     }
 
-    function copyRoomInviteLink() {
-      let shareUrl = window.location.href;
-      try {
-        const u = new URL(window.location.href);
-        u.searchParams.set('sala', state.roomCode);
-        shareUrl = u.toString();
-      } catch {}
-
-      const tempInput = document.createElement('textarea');
-      tempInput.value = shareUrl;
-      tempInput.style.position = 'fixed';
-      tempInput.style.opacity = '0';
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      try {
-        document.execCommand('copy');
-        showToast(`Enlace copiado • Sala: ${state.roomCode}`);
-      } catch {
-        showToast(`Sala privada: ${state.roomCode}`);
-      }
-      tempInput.remove();
-    }
-
     // Exportar captura limpia PNG del tablero
     async function exportBoardPNG() {
       showToast('Generando imagen PNG...');
@@ -3324,71 +3747,105 @@
        10. ENLACE DE CONTROLES DE UI Y ARRANQUE
        ------------------------------------------------------------------------ */
     function bindUIEvents() {
-      // Formulario de acceso instantáneo solo con nombre
-      const entryForm = document.getElementById('entry-form');
+      // Pantalla de proyectos: pestañas Crear / Unirse con código
       const entryModal = document.getElementById('entry-modal');
-      const usernameInput = document.getElementById('username-input');
-      const roomCodeInput = document.getElementById('room-code-input');
+      const creatorNameInput = document.getElementById('creator-name-input');
+      const joinerNameInput = document.getElementById('joiner-name-input');
+      const joinCodeInput = document.getElementById('join-code-input');
+      const projectNameInput = document.getElementById('project-name-input');
 
-      document.getElementById('toggle-room-edit-btn').addEventListener('click', () => {
-        document.getElementById('room-edit-box').classList.toggle('hidden');
-        roomCodeInput.focus();
+      document.getElementById('tab-create-btn').addEventListener('click', () => setEntryTab('create'));
+      document.getElementById('tab-join-btn').addEventListener('click', () => setEntryTab('join'));
+
+      // CREAR PROYECTO: genera un código de invitación único y entra al tablero
+      document.getElementById('create-project-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const projectName = projectNameInput.value.trim();
+        const userName = creatorNameInput.value.trim();
+        if (!projectName) { projectNameInput.focus(); return; }
+        if (!userName) { creatorNameInput.focus(); return; }
+        const code = generateProjectCode();
+        if (enterProject(code, { userName, title: projectName, isNewProject: true })) {
+          entryModal.classList.add('hidden');
+          projectNameInput.value = '';
+        }
       });
 
-      setTimeout(() => usernameInput.focus(), 100);
-
-      entryForm.addEventListener('submit', (e) => {
+      // UNIRSE A UN PROYECTO con el código de invitación (tipo código de sala)
+      document.getElementById('join-project-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        const name = usernameInput.value.trim();
+        const code = joinCodeInput.value.trim();
+        const userName = joinerNameInput.value.trim();
+        if (!sanitizeRoomSlug(code)) { joinCodeInput.focus(); showToast('Escribe el código de invitación del proyecto'); return; }
+        if (!userName) { joinerNameInput.focus(); return; }
+        if (enterProject(code, { userName })) {
+          entryModal.classList.add('hidden');
+          joinCodeInput.value = '';
+        }
+      });
+
+      // Botón Invitar: abre el modal con el código del proyecto
+      document.getElementById('invite-team-btn').addEventListener('click', openInviteModal);
+      document.getElementById('close-invite-btn').addEventListener('click', () => {
+        document.getElementById('invite-modal').classList.add('hidden');
+      });
+      document.getElementById('copy-invite-code-btn').addEventListener('click', () => {
+        copyTextWithToast(state.roomCode, `Código copiado: ${state.roomCode}`);
+      });
+      document.getElementById('copy-invite-link-btn').addEventListener('click', () => {
+        copyTextWithToast(buildInviteLink(), 'Enlace de invitación copiado');
+      });
+      const shareInviteBtn = document.getElementById('share-invite-btn');
+      if (navigator.share) {
+        shareInviteBtn.classList.remove('hidden');
+        shareInviteBtn.addEventListener('click', async () => {
+          try {
+            await navigator.share({
+              title: 'DevBoard — Invitación de proyecto',
+              text: `Únete a mi proyecto "${state.boardTitle}" con el código ${state.roomCode}:`,
+              url: buildInviteLink()
+            });
+          } catch {}
+        });
+      }
+
+      // Chip con el código del proyecto en la barra superior: clic para copiar
+      document.getElementById('project-code-chip').addEventListener('click', () => {
+        copyTextWithToast(state.roomCode, `Código copiado: ${state.roomCode}`);
+      });
+
+      // Perfil propio: cambiar nombre sin salir del proyecto
+      const profileModal = document.getElementById('profile-modal');
+      const profileNameInput = document.getElementById('profile-name-input');
+      document.getElementById('user-profile-btn').addEventListener('click', () => {
+        profileNameInput.value = state.userName || '';
+        profileModal.classList.remove('hidden');
+        setTimeout(() => { profileNameInput.focus(); profileNameInput.select(); }, 50);
+      });
+      document.getElementById('close-profile-btn').addEventListener('click', () => {
+        profileModal.classList.add('hidden');
+      });
+      document.getElementById('profile-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = profileNameInput.value.trim();
         if (!name) return;
-
-        const chosenRoom = sanitizeRoomSlug(roomCodeInput.value || state.roomCode);
-        const roomChanged = chosenRoom !== state.roomCode;
-        state.roomCode = chosenRoom;
-        document.getElementById('entry-room-badge').textContent = chosenRoom;
-
         state.userName = name;
-        state.entered = true;
-
         document.getElementById('my-name-label').textContent = name;
         const badge = document.getElementById('my-avatar-badge');
         badge.textContent = getInitials(name);
         badge.style.backgroundColor = state.userColor;
-
-        entryModal.classList.add('hidden');
         try { localStorage.setItem('devboard_username', name); } catch {}
-        if (roomChanged) {
-          state.elements.clear();
-          state.selectedIds.clear();
-          state.presence.clear();
-          state.tombstones.clear();
-          state.boardClearedAt = 0;
-          document.getElementById('elements-layer').innerHTML = '';
-          renderSvgLayer();
-          loadRoomSnapshotLocal(chosenRoom);
-          connectRoomNetwork(chosenRoom);
-        }
+        profileModal.classList.add('hidden');
         announcePresenceToRoom();
-        publishPresence(0, 0, true);
+        publishPresence(lastWorldCursor.x, lastWorldCursor.y, true);
         renderLiveAvatars();
-      });
-
-      // Botón Invitar Equipo en barra superior
-      document.getElementById('invite-team-btn').addEventListener('click', copyRoomInviteLink);
-
-      // Clic en perfil superior para editar nombre
-      document.getElementById('user-profile-btn').addEventListener('click', () => {
-        usernameInput.value = state.userName;
-        roomCodeInput.value = state.roomCode;
-        entryModal.classList.remove('hidden');
-        usernameInput.focus();
-        usernameInput.select();
+        showToast('Nombre actualizado para el equipo');
       });
 
       // Título editable del pizarrón
       const titleInput = document.getElementById('board-title-input');
       titleInput.addEventListener('change', () => {
-        const val = titleInput.value.trim() || 'Sprint & Arquitectura — Dev Team';
+        const val = titleInput.value.trim() || 'Proyecto sin título';
         titleInput.value = val;
         updateBoardTitle(val);
       });
@@ -3503,6 +3960,12 @@
         }
       });
 
+      // Volver a la pantalla de proyectos (crear otro / unirse a otro)
+      document.getElementById('opt-switch-project').addEventListener('click', () => {
+        optMenu.classList.add('hidden');
+        openProjectsHome({ tab: 'join', joinCode: '' });
+      });
+
       // Modal de Atajos
       const shortcutsModal = document.getElementById('shortcuts-modal');
       document.getElementById('opt-shortcuts').addEventListener('click', () => {
@@ -3532,15 +3995,30 @@
     window.addEventListener('DOMContentLoaded', () => {
       try {
         const savedName = localStorage.getItem('devboard_username');
-        if (savedName) document.getElementById('username-input').value = savedName;
+        if (savedName) {
+          document.getElementById('creator-name-input').value = savedName;
+          document.getElementById('joiner-name-input').value = savedName;
+        }
       } catch {}
-      const initialRoom = resolveInitialRoomCode();
-      loadRoomSnapshotLocal(initialRoom);
       applyViewportTransform();
       bindUIEvents();
       initCanvasInteractions();
       initKeyboardAndClipboard();
-      connectRoomNetwork(initialRoom);
+      renderSavedProjectsList();
+      // Enlace de invitación recibido (?sala=<código>): pestaña Unirse prellenada
+      const urlCode = resolveInitialProjectFromUrl();
+      if (urlCode) {
+        state.roomCode = urlCode;
+        document.getElementById('join-code-input').value = urlCode;
+        setEntryTab('join');
+        setTimeout(() => document.getElementById('joiner-name-input').focus(), 100);
+        // Precarga el tablero y conecta mientras el usuario escribe su nombre
+        loadRoomSnapshotLocal(urlCode);
+        connectRoomNetwork(urlCode);
+      } else {
+        setEntryTab('create');
+        setTimeout(() => document.getElementById('project-name-input').focus(), 100);
+      }
     });
   </script>
 </body>
