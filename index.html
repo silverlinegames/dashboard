@@ -30,15 +30,15 @@
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            obsidian: '#08090B',
-            panel: '#111318',
-            elevated: '#151820',
-            navy: {
-              DEFAULT: '#1E3A8A',
-              deep: '#172554',
-              bright: '#1D4ED8',
-              hover: '#2563EB',
-              border: '#2B4C9B'
+            obsidian: '#000000',
+            panel: '#0A0A0C',
+            elevated: '#101013',
+            silver: {
+              DEFAULT: '#D4D4D8',
+              deep: '#52525B',
+              bright: '#F4F4F5',
+              hover: '#E4E4E7',
+              border: '#3F3F46'
             }
           }
         }
@@ -48,18 +48,18 @@
 
   <style>
     /* ==========================================================================
-       SISTEMA DE DISEÑO ARQUITECTÓNICO DARK (NEGRO MATE + GRIS OBSIDIANA + NAVY)
+       SISTEMA DE DISEÑO SILVERLINE (NEGRO MATE + PLATA ZINC)
        ========================================================================== */
     :root {
-      --bg-obsidian: #08090B;
-      --grid-dot: #1C2029;
-      --glass-bg: #111318;
-      --glass-elevated: #151820;
-      --glass-border: #242936;
+      --bg-obsidian: #000000;
+      --grid-dot: #1B1B1F;
+      --glass-bg: #0A0A0C;
+      --glass-elevated: #101013;
+      --glass-border: #26262B;
       --glass-highlight: rgba(255, 255, 255, 0.04);
-      --navy-primary: #1E3A8A;
-      --navy-hover: #2563EB;
-      --navy-border: #2B4C8C;
+      --silver-primary: #D4D4D8;
+      --silver-hover: #E4E4E7;
+      --silver-border: #3F3F46;
     }
 
     * {
@@ -141,12 +141,12 @@
     }
 
     .board-el.selected {
-      outline: 2px solid #2563EB;
+      outline: 2px solid #E4E4E7;
       outline-offset: 2px;
       border-radius: 12px;
     }
 
-    /* Notas Adhesivas estilo Arquitectónico Oscuro (sin degradados) */
+    /* Notas Adhesivas estilo Silverline (plata sobre negro) */
     .sticky-card {
       border-radius: 12px;
       box-shadow:
@@ -167,7 +167,7 @@
       right: 0;
       width: 18px;
       height: 18px;
-      background-color: rgba(8, 9, 11, 0.45);
+      background-color: rgba(0, 0, 0, 0.45);
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       border-left: 1px solid rgba(255, 255, 255, 0.08);
       border-top-left-radius: 6px;
@@ -193,19 +193,19 @@
       pointer-events: auto;
     }
 
-    /* Handles de redimensionado en azul marino / acero */
+    /* Handles de redimensionado en plata */
     .resize-handle {
       position: absolute;
       width: 11px;
       height: 11px;
-      background: #08090B;
-      border: 2px solid #2563EB;
+      background: #000000;
+      border: 2px solid #E4E4E7;
       border-radius: 3px;
       z-index: 30;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.65);
     }
     .resize-handle:hover {
-      background: #2563EB;
+      background: #E4E4E7;
       transform: scale(1.2);
     }
     .handle-nw { top: -6px; left: -6px; cursor: nwse-resize; }
@@ -219,15 +219,15 @@
       width: 10px;
       height: 10px;
       border-radius: 9999px;
-      background: #2563EB;
+      background: #E4E4E7;
       border: 2px solid #FFFFFF;
-      box-shadow: 0 0 10px rgba(37, 99, 235, 0.85);
+      box-shadow: 0 0 10px rgba(228, 228, 231, 0.6);
       transform: translate(-50%, -50%);
       pointer-events: none;
       z-index: 40;
     }
 
-    /* Botones de herramientas en gris oscuro y estado activo azul marino sólido */
+    /* Botones de herramientas en gris oscuro y estado activo plata degradado */
     .tool-btn {
       position: relative;
       display: flex;
@@ -236,7 +236,7 @@
       width: 40px;
       height: 40px;
       border-radius: 10px;
-      color: #94A3B8;
+      color: #A1A1AA;
       border: 1px solid transparent;
       transition: all 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
@@ -245,10 +245,10 @@
       background: rgba(255, 255, 255, 0.06);
     }
     .tool-btn.active {
-      color: #FFFFFF;
-      background-color: #1E3A8A;
-      border-color: #2B4C9B;
-      box-shadow: 0 4px 14px rgba(15, 35, 66, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+      color: #09090B;
+      background: linear-gradient(180deg, #FAFAFA, #A1A1AA);
+      border-color: #3F3F46;
+      box-shadow: 0 4px 14px rgba(228, 228, 231, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.5);
     }
 
     /* Pestañas de la pantalla de proyectos (Crear / Unirse) */
@@ -262,17 +262,17 @@
       border-radius: 14px;
       font-size: 12.5px;
       font-weight: 600;
-      color: #94A3B8;
+      color: #A1A1AA;
       border: 1px solid transparent;
       cursor: pointer;
       transition: all 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     .entry-tab:hover { color: #FFFFFF; background: rgba(255, 255, 255, 0.05); }
     .entry-tab.active {
-      color: #FFFFFF;
-      background-color: #1E3A8A;
-      border-color: #2B4C9B;
-      box-shadow: 0 4px 14px rgba(15, 35, 66, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+      color: #09090B;
+      background: linear-gradient(180deg, #FAFAFA, #A1A1AA);
+      border-color: #3F3F46;
+      box-shadow: 0 4px 14px rgba(228, 228, 231, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.5);
     }
 
     /* Código de invitación seleccionable en el modal */
@@ -288,7 +288,7 @@
       bottom: calc(100% + 10px);
       left: 50%;
       transform: translateX(-50%);
-      background: #151820;
+      background: #101013;
       color: #FFFFFF;
       border: 1px solid rgba(255, 255, 255, 0.1);
       padding: 5px 9px;
@@ -343,16 +343,16 @@
         <defs>
           <!-- Marcadores de punta de flecha por color -->
           <marker id="arrow-navy" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-            <path d="M1,1.5 L8.5,5 L1,8.5 L2.8,5 Z" fill="#2563EB" />
+            <path d="M1,1.5 L8.5,5 L1,8.5 L2.8,5 Z" fill="#D4D4D8" />
           </marker>
           <marker id="arrow-steel" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-            <path d="M1,1.5 L8.5,5 L1,8.5 L2.8,5 Z" fill="#38BDF8" />
+            <path d="M1,1.5 L8.5,5 L1,8.5 L2.8,5 Z" fill="#C3CDDA" />
           </marker>
           <marker id="arrow-white" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
             <path d="M1,1.5 L8.5,5 L1,8.5 L2.8,5 Z" fill="#FFFFFF" />
           </marker>
           <marker id="arrow-slate" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-            <path d="M1,1.5 L8.5,5 L1,8.5 L2.8,5 Z" fill="#94A3B8" />
+            <path d="M1,1.5 L8.5,5 L1,8.5 L2.8,5 Z" fill="#96969E" />
           </marker>
           <marker id="arrow-forest" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
             <path d="M1,1.5 L8.5,5 L1,8.5 L2.8,5 Z" fill="#10B981" />
@@ -377,7 +377,7 @@
     </div>
 
     <!-- Cuadro de selección múltiple (Marquee) en azul marino -->
-    <div id="marquee-box" class="hidden absolute border border-[#2563EB] bg-[#1E3A8A]/20 pointer-events-none z-40 rounded-sm"></div>
+    <div id="marquee-box" class="hidden absolute border border-[#A1A1AA] bg-[#A1A1AA]/10 pointer-events-none z-40 rounded-sm"></div>
 
     <!-- Capa de cursores en vivo de otros miembros -->
     <div id="cursors-layer" class="absolute inset-0 pointer-events-none overflow-hidden z-30"></div>
@@ -389,9 +389,9 @@
   <header class="fixed top-4 left-4 right-4 z-40 flex items-center justify-between gap-3 pointer-events-none">
     <!-- Izquierda: Marca + Título del Tablero Editable + Estado en Vivo -->
     <div class="glass-pill pointer-events-auto flex items-center gap-3 px-3.5 py-2 rounded-2xl max-w-[65vw] sm:max-w-none">
-      <!-- Logo Geométrico Minimalista DevBoard en Azul Marino Sólido -->
-      <div class="w-8 h-8 rounded-xl bg-[#1E3A8A] border border-[#2B4C9B] flex items-center justify-center shadow-md shrink-0">
-        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <!-- Logo Geométrico Minimalista DevBoard en Plata Silverline -->
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-b from-[#FAFAFA] to-[#A1A1AA] border border-[#52525B] flex items-center justify-center shadow-md shrink-0">
+        <svg class="w-4 h-4 text-[#09090B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
           <rect x="3" y="3" width="7" height="7" rx="1.5" />
           <rect x="14" y="3" width="7" height="7" rx="1.5" />
           <rect x="14" y="14" width="7" height="7" rx="1.5" />
@@ -410,8 +410,8 @@
         />
         <div class="flex items-center gap-1.5 px-1.5">
           <span id="sync-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span id="sync-status-text" class="text-[11px] font-mono text-[#94A3B8] truncate">En vivo • Todo guardado</span>
-          <button id="project-code-chip" type="button" title="Copiar código de invitación del proyecto" class="hidden font-mono text-[10px] font-semibold text-[#93C5FD] bg-[#1E3A8A]/50 hover:bg-[#1E3A8A] border border-[#2B4C9B]/60 rounded-md px-1.5 py-px transition-colors cursor-pointer shrink-0"></button>
+          <span id="sync-status-text" class="text-[11px] font-mono text-[#A1A1AA] truncate">En vivo • Todo guardado</span>
+          <button id="project-code-chip" type="button" title="Copiar código de invitación del proyecto" class="hidden font-mono text-[10px] font-semibold text-[#E4E4E7] bg-[#27272A]/80 hover:bg-[#3F3F46] border border-[#3F3F46]/60 rounded-md px-1.5 py-px transition-colors cursor-pointer shrink-0"></button>
         </div>
       </div>
     </div>
@@ -426,7 +426,7 @@
         id="invite-team-btn"
         type="button"
         title="Código de invitación del proyecto"
-        class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1E3A8A] hover:bg-[#2563EB] border border-[#2B4C9B] text-xs font-semibold text-white shadow-md transition-all cursor-pointer"
+        class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-b from-[#FAFAFA] to-[#A1A1AA] hover:from-white hover:to-[#D4D4D8] border border-[#3F3F46] shadow-[0_0_24px_rgba(228,228,231,0.22)] text-xs font-semibold text-[#09090B] shadow-md transition-all cursor-pointer"
       >
         <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
           <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke-linecap="round" stroke-linejoin="round"/>
@@ -442,11 +442,11 @@
         id="user-profile-btn"
         type="button"
         title="Cambiar tu nombre"
-        class="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-[#151820] hover:bg-[#1C212C] border border-white/[0.08] transition-all text-left"
+        class="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-[#101013] hover:bg-[#1C1C21] border border-white/[0.08] transition-all text-left"
       >
-        <span id="my-avatar-badge" class="w-6 h-6 rounded-full bg-[#1E3A8A] border border-[#2B4C9B] text-[11px] font-bold text-white flex items-center justify-center shrink-0">?</span>
+        <span id="my-avatar-badge" class="w-6 h-6 rounded-full bg-[#27272A] border border-[#3F3F46] text-[11px] font-bold text-white flex items-center justify-center shrink-0">?</span>
         <span id="my-name-label" class="text-xs font-medium text-white max-w-[90px] sm:max-w-[130px] truncate hidden sm:inline">Invitado</span>
-        <svg class="w-3.5 h-3.5 text-[#94A3B8] hidden sm:inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg class="w-3.5 h-3.5 text-[#A1A1AA] hidden sm:inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
@@ -457,7 +457,7 @@
           id="board-options-btn"
           type="button"
           aria-label="Opciones del pizarrón"
-          class="p-2 rounded-xl text-[#94A3B8] hover:text-white hover:bg-white/[0.06] transition-colors"
+          class="p-2 rounded-xl text-[#A1A1AA] hover:text-white hover:bg-white/[0.06] transition-colors"
         >
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="5" r="1.5" />
@@ -469,14 +469,14 @@
         <!-- Dropdown de Opciones -->
         <div id="board-options-menu" class="hidden absolute right-0 mt-2.5 w-60 glass-panel rounded-2xl p-1.5 z-50 animate-modal">
           <button id="opt-export-png" type="button" class="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-medium text-white hover:bg-white/[0.06] rounded-xl transition-colors text-left">
-            <svg class="w-4 h-4 text-[#38BDF8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg class="w-4 h-4 text-[#D4D4D8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             <span>Exportar imagen PNG</span>
           </button>
 
           <button id="opt-export-json" type="button" class="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-medium text-white hover:bg-white/[0.06] rounded-xl transition-colors text-left">
-            <svg class="w-4 h-4 text-[#2563EB] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg class="w-4 h-4 text-[#A1A1AA] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-linecap="round" stroke-linejoin="round"/>
               <polyline points="14 2 14 8 20 8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -491,7 +491,7 @@
           </button>
 
           <button id="opt-shortcuts" type="button" class="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-medium text-white hover:bg-white/[0.06] rounded-xl transition-colors text-left">
-            <svg class="w-4 h-4 text-[#94A3B8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg class="w-4 h-4 text-[#A1A1AA] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="2" y="4" width="20" height="16" rx="3" />
               <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M7 16h10" stroke-linecap="round"/>
             </svg>
@@ -499,7 +499,7 @@
           </button>
 
           <button id="opt-switch-project" type="button" class="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-medium text-white hover:bg-white/[0.06] rounded-xl transition-colors text-left">
-            <svg class="w-4 h-4 text-[#60A5FA] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg class="w-4 h-4 text-[#D4D4D8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M15 14l4-4m0 0h-3.5m3.5 0v3.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -531,26 +531,26 @@
     <div id="ctx-extra" class="flex items-center gap-1.5"></div>
 
     <!-- Acciones de elemento seleccionado -->
-    <div id="ctx-actions" class="hidden flex items-center gap-1 border-l border-[#242936] pl-2">
-      <button id="ctx-edit-text-btn" type="button" title="Editar texto (Doble clic / Enter)" class="hidden px-2.5 py-1.5 rounded-lg bg-[#1E3A8A] hover:bg-[#2563EB] border border-[#2B4C8C] text-white text-[11px] font-medium flex items-center gap-1.5 transition-colors">
+    <div id="ctx-actions" class="hidden flex items-center gap-1 border-l border-[#26262B] pl-2">
+      <button id="ctx-edit-text-btn" type="button" title="Editar texto (Doble clic / Enter)" class="hidden px-2.5 py-1.5 rounded-lg bg-gradient-to-b from-[#FAFAFA] to-[#A1A1AA] hover:from-white hover:to-[#D4D4D8] border border-[#3F3F46] shadow-[0_0_24px_rgba(228,228,231,0.22)] text-[#09090B] text-[11px] font-medium flex items-center gap-1.5 transition-colors">
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <span>Editar texto</span>
       </button>
-      <button id="ctx-front-btn" type="button" title="Traer al frente" class="p-1.5 rounded-lg text-[#94A3B8] hover:text-white hover:bg-white/10 transition-colors">
+      <button id="ctx-front-btn" type="button" title="Traer al frente" class="p-1.5 rounded-lg text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-colors">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="8" y="8" width="12" height="12" rx="2"/>
           <path d="M4 16V6a2 2 0 0 1 2-2h10" stroke-linecap="round"/>
         </svg>
       </button>
-      <button id="ctx-back-btn" type="button" title="Enviar atrás" class="p-1.5 rounded-lg text-[#94A3B8] hover:text-white hover:bg-white/10 transition-colors">
+      <button id="ctx-back-btn" type="button" title="Enviar atrás" class="p-1.5 rounded-lg text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-colors">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="4" y="4" width="12" height="12" rx="2"/>
           <path d="M8 20h10a2 2 0 0 0 2-2V8" stroke-linecap="round"/>
         </svg>
       </button>
-      <button id="ctx-dup-btn" type="button" title="Duplicar (Ctrl+D)" class="p-1.5 rounded-lg text-[#94A3B8] hover:text-white hover:bg-white/10 transition-colors">
+      <button id="ctx-dup-btn" type="button" title="Duplicar (Ctrl+D)" class="p-1.5 rounded-lg text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-colors">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="9" y="9" width="13" height="13" rx="2"/>
           <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke-linecap="round"/>
@@ -643,11 +643,11 @@
        5. CONTROLES DE ZOOM INFERIOR DERECHA
        ======================================================================== -->
   <div class="fixed bottom-4 right-4 z-40 glass-pill px-2 py-1.5 rounded-2xl hidden sm:flex items-center gap-1">
-    <button id="zoom-out-btn" type="button" title="Alejar (-)" class="w-8 h-8 flex items-center justify-center rounded-xl text-[#94A3B8] hover:text-white hover:bg-white/10 transition-colors font-mono text-base">−</button>
+    <button id="zoom-out-btn" type="button" title="Alejar (-)" class="w-8 h-8 flex items-center justify-center rounded-xl text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-colors font-mono text-base">−</button>
     <button id="zoom-reset-btn" type="button" title="Restablecer 100%" class="px-2 h-8 flex items-center justify-center rounded-xl text-xs font-mono font-medium text-white hover:bg-white/10 transition-colors min-w-[52px]">100%</button>
-    <button id="zoom-in-btn" type="button" title="Acercar (+)" class="w-8 h-8 flex items-center justify-center rounded-xl text-[#94A3B8] hover:text-white hover:bg-white/10 transition-colors font-mono text-base">+</button>
+    <button id="zoom-in-btn" type="button" title="Acercar (+)" class="w-8 h-8 flex items-center justify-center rounded-xl text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-colors font-mono text-base">+</button>
     <div class="h-4 w-px bg-white/10 mx-0.5"></div>
-    <button id="zoom-fit-btn" type="button" title="Centrar vista en el contenido" class="w-8 h-8 flex items-center justify-center rounded-xl text-[#94A3B8] hover:text-white hover:bg-white/10 transition-colors">
+    <button id="zoom-fit-btn" type="button" title="Centrar vista en el contenido" class="w-8 h-8 flex items-center justify-center rounded-xl text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-colors">
       <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -657,11 +657,11 @@
   <!-- ========================================================================
        6. PANTALLA DE PROYECTOS (PRIMERO CREAR PROYECTO / UNIRSE CON CÓDIGO)
        ======================================================================== -->
-  <div id="entry-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#08090B]/85 backdrop-blur-md overflow-y-auto">
+  <div id="entry-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#000000]/85 backdrop-blur-md overflow-y-auto">
     <div class="glass-panel w-full max-w-md rounded-3xl p-7 animate-modal my-6">
       <div class="flex items-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-2xl bg-[#1E3A8A] border border-[#2B4C9B] flex items-center justify-center shadow-lg shrink-0">
-          <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-b from-[#FAFAFA] to-[#A1A1AA] border border-[#52525B] flex items-center justify-center shadow-lg shrink-0">
+          <svg class="w-5 h-5 text-[#09090B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <rect x="3" y="3" width="7" height="7" rx="1.5" />
             <rect x="14" y="3" width="7" height="7" rx="1.5" />
             <rect x="14" y="14" width="7" height="7" rx="1.5" />
@@ -669,19 +669,19 @@
           </svg>
         </div>
         <div>
-          <span class="text-[11px] font-mono uppercase tracking-wider text-[#60A5FA]">Proyectos de Equipo</span>
-          <h1 class="text-xl font-bold text-white leading-tight">DevBoard en Vivo</h1>
+          <span class="text-[11px] font-mono uppercase tracking-[0.3em] text-[#71717A]">Proyectos de Equipo</span>
+          <h1 class="text-xl font-bold leading-tight bg-gradient-to-b from-white via-zinc-300 to-zinc-600 bg-clip-text text-transparent drop-shadow-[0_10px_24px_rgba(0,0,0,0.9)]">DevBoard en Vivo</h1>
         </div>
       </div>
 
-      <p class="text-sm text-[#94A3B8] leading-relaxed mb-5">
+      <p class="text-sm text-[#A1A1AA] leading-relaxed mb-5">
         Primero crea un <span class="text-white font-medium">proyecto</span>: se genera un código de
         invitación para que tu equipo se una, como si fuera un código de sala. Cada cambio de cualquier
         persona se guarda y se sincroniza al instante en todos los dispositivos.
       </p>
 
       <!-- Pestañas: Crear / Unirse -->
-      <div class="grid grid-cols-2 gap-1.5 p-1.5 rounded-2xl bg-[#0B0D11] border border-white/10 mb-5" role="tablist" aria-label="Acceso a proyectos">
+      <div class="grid grid-cols-2 gap-1.5 p-1.5 rounded-2xl bg-[#0A0A0C] border border-white/10 mb-5" role="tablist" aria-label="Acceso a proyectos">
         <button id="tab-create-btn" type="button" role="tab" class="entry-tab active">
           <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <path d="M12 5v14M5 12h14" stroke-linecap="round" />
@@ -700,37 +700,37 @@
       <!-- Formulario: CREAR PROYECTO -->
       <form id="create-project-form" class="space-y-3.5" novalidate>
         <div>
-          <label for="project-name-input" class="block text-[11px] font-mono text-[#94A3B8] mb-1.5">Nombre del proyecto</label>
+          <label for="project-name-input" class="block text-[11px] font-mono text-[#A1A1AA] mb-1.5">Nombre del proyecto</label>
           <input
             id="project-name-input"
             type="text"
             maxlength="48"
             autocomplete="off"
             placeholder="ej. EDR — Motor del juego"
-            class="w-full px-4 py-3 rounded-2xl bg-[#0B0D11] border border-white/10 text-white placeholder-[#64748B] text-sm focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#1E3A8A]/50 transition-all"
+            class="w-full px-4 py-3 rounded-2xl bg-[#0A0A0C] border border-white/10 text-white placeholder-[#71717A] text-sm focus:outline-none focus:border-[#A1A1AA] focus:ring-2 focus:ring-[#A1A1AA]/25 transition-all"
           />
         </div>
         <div>
-          <label for="creator-name-input" class="block text-[11px] font-mono text-[#94A3B8] mb-1.5">Tu nombre</label>
+          <label for="creator-name-input" class="block text-[11px] font-mono text-[#A1A1AA] mb-1.5">Tu nombre</label>
           <input
             id="creator-name-input"
             type="text"
             maxlength="28"
             autocomplete="off"
             placeholder="Tu nombre..."
-            class="w-full px-4 py-3 rounded-2xl bg-[#0B0D11] border border-white/10 text-white placeholder-[#64748B] text-sm focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#1E3A8A]/50 transition-all"
+            class="w-full px-4 py-3 rounded-2xl bg-[#0A0A0C] border border-white/10 text-white placeholder-[#71717A] text-sm focus:outline-none focus:border-[#A1A1AA] focus:ring-2 focus:ring-[#A1A1AA]/25 transition-all"
           />
         </div>
         <button
           type="submit"
-          class="w-full py-3.5 px-5 rounded-2xl bg-[#1E3A8A] hover:bg-[#2563EB] border border-[#2B4C9B] text-white font-semibold text-sm shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+          class="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-b from-[#FAFAFA] to-[#A1A1AA] hover:from-white hover:to-[#D4D4D8] border border-[#3F3F46] shadow-[0_0_24px_rgba(228,228,231,0.22)] text-[#09090B] font-semibold text-sm shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <path d="M12 5v14M5 12h14" stroke-linecap="round" />
           </svg>
           <span>Crear proyecto</span>
         </button>
-        <p class="text-[11px] text-[#64748B] text-center leading-relaxed">
+        <p class="text-[11px] text-[#71717A] text-center leading-relaxed">
           Se generará un código de invitación único para tu equipo.
         </p>
       </form>
@@ -738,7 +738,7 @@
       <!-- Formulario: UNIRSE CON CÓDIGO -->
       <form id="join-project-form" class="hidden space-y-3.5" novalidate>
         <div>
-          <label for="join-code-input" class="block text-[11px] font-mono text-[#94A3B8] mb-1.5">Código de invitación</label>
+          <label for="join-code-input" class="block text-[11px] font-mono text-[#A1A1AA] mb-1.5">Código de invitación</label>
           <input
             id="join-code-input"
             type="text"
@@ -746,23 +746,23 @@
             autocomplete="off"
             spellcheck="false"
             placeholder="ej. k7m2-9qx4"
-            class="w-full px-4 py-3 rounded-2xl bg-[#0B0D11] border border-white/10 text-white placeholder-[#64748B] font-mono text-sm tracking-wider focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#1E3A8A]/50 transition-all"
+            class="w-full px-4 py-3 rounded-2xl bg-[#0A0A0C] border border-white/10 text-white placeholder-[#71717A] font-mono text-sm tracking-wider focus:outline-none focus:border-[#A1A1AA] focus:ring-2 focus:ring-[#A1A1AA]/25 transition-all"
           />
         </div>
         <div>
-          <label for="joiner-name-input" class="block text-[11px] font-mono text-[#94A3B8] mb-1.5">Tu nombre</label>
+          <label for="joiner-name-input" class="block text-[11px] font-mono text-[#A1A1AA] mb-1.5">Tu nombre</label>
           <input
             id="joiner-name-input"
             type="text"
             maxlength="28"
             autocomplete="off"
             placeholder="Tu nombre..."
-            class="w-full px-4 py-3 rounded-2xl bg-[#0B0D11] border border-white/10 text-white placeholder-[#64748B] text-sm focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#1E3A8A]/50 transition-all"
+            class="w-full px-4 py-3 rounded-2xl bg-[#0A0A0C] border border-white/10 text-white placeholder-[#71717A] text-sm focus:outline-none focus:border-[#A1A1AA] focus:ring-2 focus:ring-[#A1A1AA]/25 transition-all"
           />
         </div>
         <button
           type="submit"
-          class="w-full py-3.5 px-5 rounded-2xl bg-[#1E3A8A] hover:bg-[#2563EB] border border-[#2B4C9B] text-white font-semibold text-sm shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+          class="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-b from-[#FAFAFA] to-[#A1A1AA] hover:from-white hover:to-[#D4D4D8] border border-[#3F3F46] shadow-[0_0_24px_rgba(228,228,231,0.22)] text-[#09090B] font-semibold text-sm shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
           <span>Entrar al proyecto</span>
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -773,7 +773,7 @@
 
       <!-- Proyectos guardados en este dispositivo -->
       <div id="saved-projects-section" class="hidden mt-6 pt-5 border-t border-white/10">
-        <span class="block text-[11px] font-mono uppercase tracking-wider text-[#94A3B8] mb-3">Mis proyectos</span>
+        <span class="block text-[11px] font-mono uppercase tracking-wider text-[#A1A1AA] mb-3">Mis proyectos</span>
         <div id="saved-projects-list" class="space-y-2 max-h-56 overflow-y-auto pr-1"></div>
       </div>
     </div>
@@ -782,35 +782,35 @@
   <!-- ========================================================================
        6-B. MODAL DE INVITACIÓN (CÓDIGO DEL PROYECTO, TIPO CÓDIGO DE SALA)
        ======================================================================== -->
-  <div id="invite-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#08090B]/75 backdrop-blur-sm">
+  <div id="invite-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#000000]/75 backdrop-blur-sm">
     <div class="glass-panel w-full max-w-sm rounded-3xl p-6 animate-modal">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-base font-bold text-white">Invitar al proyecto</h3>
-        <button id="close-invite-btn" type="button" class="p-1.5 rounded-lg text-[#94A3B8] hover:text-white hover:bg-white/10">
+        <button id="close-invite-btn" type="button" class="p-1.5 rounded-lg text-[#A1A1AA] hover:text-white hover:bg-white/10">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
         </button>
       </div>
 
-      <p class="text-xs text-[#94A3B8] leading-relaxed mb-4">
+      <p class="text-xs text-[#A1A1AA] leading-relaxed mb-4">
         Comparte este código con tu equipo: quien lo escriba en la pantalla de entrada entrará a este
         mismo tablero en vivo. Todo lo que edite cualquiera se guarda automáticamente.
       </p>
 
-      <div class="rounded-2xl bg-[#0B0D11] border border-[#2B4C9B]/50 px-4 py-5 text-center mb-4">
-        <span class="block text-[10px] font-mono uppercase tracking-widest text-[#94A3B8]">Código de invitación</span>
+      <div class="rounded-2xl bg-[#0A0A0C] border border-[#3F3F46]/50 px-4 py-5 text-center mb-4">
+        <span class="block text-[10px] font-mono uppercase tracking-widest text-[#A1A1AA]">Código de invitación</span>
         <div id="invite-code-display" class="selectable-code font-mono text-3xl font-bold text-white tracking-[0.12em] mt-1.5">----</div>
-        <div id="invite-project-name" class="text-xs text-[#94A3B8] mt-2 truncate"></div>
+        <div id="invite-project-name" class="text-xs text-[#A1A1AA] mt-2 truncate"></div>
       </div>
 
       <div class="grid grid-cols-2 gap-2">
-        <button id="copy-invite-code-btn" type="button" class="py-2.5 rounded-xl bg-[#1E3A8A] hover:bg-[#2563EB] border border-[#2B4C9B] text-white text-xs font-semibold transition-colors cursor-pointer">
+        <button id="copy-invite-code-btn" type="button" class="py-2.5 rounded-xl bg-gradient-to-b from-[#FAFAFA] to-[#A1A1AA] hover:from-white hover:to-[#D4D4D8] border border-[#3F3F46] shadow-[0_0_24px_rgba(228,228,231,0.22)] text-[#09090B] text-xs font-semibold transition-colors cursor-pointer">
           Copiar código
         </button>
-        <button id="copy-invite-link-btn" type="button" class="py-2.5 rounded-xl bg-[#151820] hover:bg-[#1C212C] border border-white/10 text-white text-xs font-semibold transition-colors cursor-pointer">
+        <button id="copy-invite-link-btn" type="button" class="py-2.5 rounded-xl bg-[#101013] hover:bg-[#1C1C21] border border-white/10 text-white text-xs font-semibold transition-colors cursor-pointer">
           Copiar enlace
         </button>
       </div>
-      <button id="share-invite-btn" type="button" class="hidden w-full mt-2 py-2.5 rounded-xl bg-[#151820] hover:bg-[#1C212C] border border-white/10 text-white text-xs font-semibold transition-colors cursor-pointer">
+      <button id="share-invite-btn" type="button" class="hidden w-full mt-2 py-2.5 rounded-xl bg-[#101013] hover:bg-[#1C1C21] border border-white/10 text-white text-xs font-semibold transition-colors cursor-pointer">
         Compartir...
       </button>
     </div>
@@ -819,27 +819,27 @@
   <!-- ========================================================================
        6-C. MODAL DE PERFIL PROPIO (CAMBIAR NOMBRE SIN SALIR DEL PROYECTO)
        ======================================================================== -->
-  <div id="profile-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#08090B]/75 backdrop-blur-sm">
+  <div id="profile-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#000000]/75 backdrop-blur-sm">
     <div class="glass-panel w-full max-w-xs rounded-3xl p-6 animate-modal">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-base font-bold text-white">Tu perfil</h3>
-        <button id="close-profile-btn" type="button" class="p-1.5 rounded-lg text-[#94A3B8] hover:text-white hover:bg-white/10">
+        <button id="close-profile-btn" type="button" class="p-1.5 rounded-lg text-[#A1A1AA] hover:text-white hover:bg-white/10">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
         </button>
       </div>
       <form id="profile-form" class="space-y-4">
         <div>
-          <label for="profile-name-input" class="block text-[11px] font-mono text-[#94A3B8] mb-1.5">Tu nombre</label>
+          <label for="profile-name-input" class="block text-[11px] font-mono text-[#A1A1AA] mb-1.5">Tu nombre</label>
           <input
             id="profile-name-input"
             type="text"
             maxlength="28"
             autocomplete="off"
             placeholder="Tu nombre..."
-            class="w-full px-4 py-3 rounded-2xl bg-[#0B0D11] border border-white/10 text-white placeholder-[#64748B] text-sm focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#1E3A8A]/50 transition-all"
+            class="w-full px-4 py-3 rounded-2xl bg-[#0A0A0C] border border-white/10 text-white placeholder-[#71717A] text-sm focus:outline-none focus:border-[#A1A1AA] focus:ring-2 focus:ring-[#A1A1AA]/25 transition-all"
           />
         </div>
-        <button type="submit" class="w-full py-3 rounded-2xl bg-[#1E3A8A] hover:bg-[#2563EB] border border-[#2B4C9B] text-white font-semibold text-sm shadow-lg transition-all cursor-pointer">
+        <button type="submit" class="w-full py-3 rounded-2xl bg-gradient-to-b from-[#FAFAFA] to-[#A1A1AA] hover:from-white hover:to-[#D4D4D8] border border-[#3F3F46] shadow-[0_0_24px_rgba(228,228,231,0.22)] text-[#09090B] font-semibold text-sm shadow-lg transition-all cursor-pointer">
           Guardar
         </button>
       </form>
@@ -849,27 +849,27 @@
   <!-- ========================================================================
        7. MODAL DE IMÁGENES (SUBIR ARCHIVO / URL / PEGAR)
        ======================================================================== -->
-  <div id="image-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#08090B]/75 backdrop-blur-sm">
+  <div id="image-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#000000]/75 backdrop-blur-sm">
     <div class="glass-panel w-full max-w-md rounded-3xl p-6 animate-modal">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-base font-semibold text-white">Insertar Imagen al Tablero</h2>
-        <button id="close-image-modal" type="button" class="p-1.5 rounded-lg text-[#94A3B8] hover:text-white hover:bg-white/10">
+        <button id="close-image-modal" type="button" class="p-1.5 rounded-lg text-[#A1A1AA] hover:text-white hover:bg-white/10">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
         </button>
       </div>
 
       <div class="space-y-4">
-        <button id="upload-device-btn" type="button" class="w-full py-6 px-4 rounded-2xl border-2 border-dashed border-white/15 hover:border-[#2563EB] bg-[#0B0D11] hover:bg-[#1E3A8A]/20 transition-all flex flex-col items-center justify-center gap-2 text-center cursor-pointer">
-          <svg class="w-8 h-8 text-[#38BDF8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <button id="upload-device-btn" type="button" class="w-full py-6 px-4 rounded-2xl border-2 border-dashed border-white/15 hover:border-[#A1A1AA] bg-[#0A0A0C] hover:bg-[#A1A1AA]/10 transition-all flex flex-col items-center justify-center gap-2 text-center cursor-pointer">
+          <svg class="w-8 h-8 text-[#D4D4D8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <span class="text-sm font-medium text-white">Seleccionar imagen desde tu dispositivo</span>
-          <span class="text-xs text-[#94A3B8]">O arrastra y suelta / pega con <kbd class="px-1.5 py-0.5 bg-white/10 rounded font-mono text-[10px] text-white">Ctrl+V</kbd></span>
+          <span class="text-xs text-[#A1A1AA]">O arrastra y suelta / pega con <kbd class="px-1.5 py-0.5 bg-white/10 rounded font-mono text-[10px] text-white">Ctrl+V</kbd></span>
         </button>
 
         <div class="flex items-center gap-3">
           <div class="h-px flex-1 bg-white/10"></div>
-          <span class="text-[11px] font-mono text-[#64748B] uppercase">o desde enlace</span>
+          <span class="text-[11px] font-mono text-[#71717A] uppercase">o desde enlace</span>
           <div class="h-px flex-1 bg-white/10"></div>
         </div>
 
@@ -878,9 +878,9 @@
             id="image-url-input"
             type="url"
             placeholder="https://ejemplo.com/diagrama.png"
-            class="flex-1 px-3.5 py-2.5 rounded-xl bg-[#0B0D11] border border-white/10 text-sm text-white placeholder-[#64748B] focus:outline-none focus:border-[#2563EB]"
+            class="flex-1 px-3.5 py-2.5 rounded-xl bg-[#0A0A0C] border border-white/10 text-sm text-white placeholder-[#71717A] focus:outline-none focus:border-[#A1A1AA]"
           />
-          <button type="submit" class="px-4 py-2.5 rounded-xl bg-[#1E3A8A] hover:bg-[#2563EB] border border-[#2B4C9B] text-xs font-semibold text-white transition-colors">
+          <button type="submit" class="px-4 py-2.5 rounded-xl bg-gradient-to-b from-[#FAFAFA] to-[#A1A1AA] hover:from-white hover:to-[#D4D4D8] border border-[#3F3F46] shadow-[0_0_24px_rgba(228,228,231,0.22)] text-xs font-semibold text-[#09090B] transition-colors">
             Insertar
           </button>
         </form>
@@ -891,7 +891,7 @@
   <!-- ========================================================================
        8. MODAL DE CONFIRMACIÓN PARA LIMPIAR PIZARRÓN
        ======================================================================== -->
-  <div id="confirm-clear-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#08090B]/75 backdrop-blur-sm">
+  <div id="confirm-clear-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#000000]/75 backdrop-blur-sm">
     <div class="glass-panel w-full max-w-sm rounded-3xl p-6 animate-modal">
       <div class="w-11 h-11 rounded-2xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 mb-4">
         <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -901,11 +901,11 @@
         </svg>
       </div>
       <h3 class="text-base font-bold text-white mb-1.5">¿Limpiar todo el pizarrón?</h3>
-      <p class="text-xs text-[#94A3B8] leading-relaxed mb-5">
+      <p class="text-xs text-[#A1A1AA] leading-relaxed mb-5">
         Se eliminarán todas las notas, diagramas, flechas e imágenes para todos los miembros conectados. Esta acción no se puede deshacer.
       </p>
       <div class="flex items-center justify-end gap-2">
-        <button id="cancel-clear-btn" type="button" class="px-4 py-2 rounded-xl text-xs font-medium text-[#94A3B8] hover:text-white hover:bg-white/10 transition-colors">
+        <button id="cancel-clear-btn" type="button" class="px-4 py-2 rounded-xl text-xs font-medium text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-colors">
           Cancelar
         </button>
         <button id="confirm-clear-btn" type="button" class="px-4 py-2 rounded-xl text-xs font-semibold bg-rose-700 hover:bg-rose-600 border border-rose-500/40 text-white transition-colors">
@@ -918,25 +918,25 @@
   <!-- ========================================================================
        9. MODAL DE ATAJOS DE TECLADO
        ======================================================================== -->
-  <div id="shortcuts-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#08090B]/75 backdrop-blur-sm">
+  <div id="shortcuts-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#000000]/75 backdrop-blur-sm">
     <div class="glass-panel w-full max-w-md rounded-3xl p-6 animate-modal">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-base font-bold text-white">Atajos de Teclado</h3>
-        <button id="close-shortcuts-btn" type="button" class="p-1.5 rounded-lg text-[#94A3B8] hover:text-white hover:bg-white/10">
+        <button id="close-shortcuts-btn" type="button" class="p-1.5 rounded-lg text-[#A1A1AA] hover:text-white hover:bg-white/10">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
         </button>
       </div>
       <div class="grid grid-cols-2 gap-2.5 text-xs">
-        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0B0D11] border border-white/5"><span class="text-[#94A3B8]">Seleccionar</span><kbd class="px-2 py-0.5 bg-[#1E3A8A]/50 border border-[#2B4C9B] rounded font-mono text-white">V</kbd></div>
-        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0B0D11] border border-white/5"><span class="text-[#94A3B8]">Mover Lienzo</span><kbd class="px-2 py-0.5 bg-[#1E3A8A]/50 border border-[#2B4C9B] rounded font-mono text-white">H / Espacio</kbd></div>
-        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0B0D11] border border-white/5"><span class="text-[#94A3B8]">Nota Adhesiva</span><kbd class="px-2 py-0.5 bg-[#1E3A8A]/50 border border-[#2B4C9B] rounded font-mono text-white">S</kbd></div>
-        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0B0D11] border border-white/5"><span class="text-[#94A3B8]">Texto / Código</span><kbd class="px-2 py-0.5 bg-[#1E3A8A]/50 border border-[#2B4C9B] rounded font-mono text-white">T</kbd></div>
-        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0B0D11] border border-white/5"><span class="text-[#94A3B8]">Formas Dev</span><kbd class="px-2 py-0.5 bg-[#1E3A8A]/50 border border-[#2B4C9B] rounded font-mono text-white">R</kbd></div>
-        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0B0D11] border border-white/5"><span class="text-[#94A3B8]">Conector</span><kbd class="px-2 py-0.5 bg-[#1E3A8A]/50 border border-[#2B4C9B] rounded font-mono text-white">C</kbd></div>
-        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0B0D11] border border-white/5"><span class="text-[#94A3B8]">Dibujo Libre</span><kbd class="px-2 py-0.5 bg-[#1E3A8A]/50 border border-[#2B4C9B] rounded font-mono text-white">P</kbd></div>
-        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0B0D11] border border-white/5"><span class="text-[#94A3B8]">Imagen</span><kbd class="px-2 py-0.5 bg-[#1E3A8A]/50 border border-[#2B4C9B] rounded font-mono text-white">I / Ctrl+V</kbd></div>
-        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0B0D11] border border-white/5"><span class="text-[#94A3B8]">Duplicar</span><kbd class="px-2 py-0.5 bg-[#1E3A8A]/50 border border-[#2B4C9B] rounded font-mono text-white">Ctrl + D</kbd></div>
-        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0B0D11] border border-white/5"><span class="text-[#94A3B8]">Eliminar</span><kbd class="px-2 py-0.5 bg-rose-950 border border-rose-800 rounded font-mono text-rose-300">Supr</kbd></div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0A0A0C] border border-white/5"><span class="text-[#A1A1AA]">Seleccionar</span><kbd class="px-2 py-0.5 bg-[#27272A]/70 border border-[#3F3F46] rounded font-mono text-zinc-100">V</kbd></div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0A0A0C] border border-white/5"><span class="text-[#A1A1AA]">Mover Lienzo</span><kbd class="px-2 py-0.5 bg-[#27272A]/70 border border-[#3F3F46] rounded font-mono text-zinc-100">H / Espacio</kbd></div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0A0A0C] border border-white/5"><span class="text-[#A1A1AA]">Nota Adhesiva</span><kbd class="px-2 py-0.5 bg-[#27272A]/70 border border-[#3F3F46] rounded font-mono text-zinc-100">S</kbd></div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0A0A0C] border border-white/5"><span class="text-[#A1A1AA]">Texto / Código</span><kbd class="px-2 py-0.5 bg-[#27272A]/70 border border-[#3F3F46] rounded font-mono text-zinc-100">T</kbd></div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0A0A0C] border border-white/5"><span class="text-[#A1A1AA]">Formas Dev</span><kbd class="px-2 py-0.5 bg-[#27272A]/70 border border-[#3F3F46] rounded font-mono text-zinc-100">R</kbd></div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0A0A0C] border border-white/5"><span class="text-[#A1A1AA]">Conector</span><kbd class="px-2 py-0.5 bg-[#27272A]/70 border border-[#3F3F46] rounded font-mono text-zinc-100">C</kbd></div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0A0A0C] border border-white/5"><span class="text-[#A1A1AA]">Dibujo Libre</span><kbd class="px-2 py-0.5 bg-[#27272A]/70 border border-[#3F3F46] rounded font-mono text-zinc-100">P</kbd></div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0A0A0C] border border-white/5"><span class="text-[#A1A1AA]">Imagen</span><kbd class="px-2 py-0.5 bg-[#27272A]/70 border border-[#3F3F46] rounded font-mono text-zinc-100">I / Ctrl+V</kbd></div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0A0A0C] border border-white/5"><span class="text-[#A1A1AA]">Duplicar</span><kbd class="px-2 py-0.5 bg-[#27272A]/70 border border-[#3F3F46] rounded font-mono text-zinc-100">Ctrl + D</kbd></div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#0A0A0C] border border-white/5"><span class="text-[#A1A1AA]">Eliminar</span><kbd class="px-2 py-0.5 bg-rose-950 border border-rose-800 rounded font-mono text-rose-300">Supr</kbd></div>
       </div>
     </div>
   </div>
@@ -950,19 +950,28 @@
   <script type="module">
 
     /* ------------------------------------------------------------------------
-       CONFIGURACIÓN DE PALETAS ARQUITECTÓNICAS (AZUL MARINO, GRIS, ACERO)
+       CONFIGURACIÓN DE PALETAS SILVERLINE (PLATA, GRAFITO Y TONOS FUNCIONALES)
        ------------------------------------------------------------------------ */
     const PALETTE = {
-      navy:   { name: 'Azul Marino',        bg: '#0F2342', solid: '#2563EB', border: '#2B4C8C', text: '#FFFFFF' },
-      slate:  { name: 'Gris Pizarra',       bg: '#191D26', solid: '#94A3B8', border: '#2E3545', text: '#FFFFFF' },
-      steel:  { name: 'Azul Acero',         bg: '#162A45', solid: '#38BDF8', border: '#2B5B84', text: '#FFFFFF' },
+      navy:   { name: 'Plata Brillante',    bg: '#1E1E24', solid: '#D4D4D8', border: '#45454D', text: '#FFFFFF' },
+      slate:  { name: 'Grafito',            bg: '#141417', solid: '#96969E', border: '#2E2E34', text: '#FFFFFF' },
+      steel:  { name: 'Plata Fría',         bg: '#171A21', solid: '#C3CDDA', border: '#3A4150', text: '#FFFFFF' },
       forest: { name: 'Verde Bosque',       bg: '#112924', solid: '#10B981', border: '#1E4D42', text: '#FFFFFF' },
       amber:  { name: 'Ámbar Oscuro',       bg: '#2B1F11', solid: '#F59E0B', border: '#5C401E', text: '#FFFFFF' },
       wine:   { name: 'Rojo Vino',          bg: '#2C1519', solid: '#F43F5E', border: '#5E242E', text: '#FFFFFF' },
-      white:  { name: 'Blanco / Contraste', bg: '#151820', solid: '#FFFFFF', border: '#3B4254', text: '#FFFFFF' }
+      white:  { name: 'Blanco / Contraste', bg: '#101013', solid: '#FFFFFF', border: '#3F3F46', text: '#FFFFFF' }
     };
 
-    const CURSOR_COLORS = ['#1E3A8A', '#2563EB', '#0284C7', '#059669', '#D97706', '#E11D48', '#475569'];
+    const CURSOR_COLORS = ['#E4E4E7', '#A1A1AA', '#D4D4D8', '#10B981', '#F59E0B', '#F43F5E', '#71717A'];
+
+    /* Texto legible sobre el color de usuario (plata clara → texto oscuro) */
+    const readableOn = (hex) => {
+      try {
+        const c = String(hex).replace('#', '');
+        const r = parseInt(c.slice(0, 2), 16), g = parseInt(c.slice(2, 4), 16), b = parseInt(c.slice(4, 6), 16);
+        return (0.299 * r + 0.587 * g + 0.114 * b) > 150 ? '#09090B' : '#FFFFFF';
+      } catch { return '#FFFFFF'; }
+    };
     const SVG_OFFSET = 50000; // Desplazamiento para coordenadas negativas en SVG
 
     /* ------------------------------------------------------------------------
@@ -1169,22 +1178,22 @@
       listEl.innerHTML = '';
       list.forEach((p) => {
         const item = document.createElement('div');
-        item.className = 'group w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl bg-[#0B0D11] hover:bg-[#16223E] border border-white/[0.06] hover:border-[#2B4C9B] transition-all cursor-pointer text-left';
+        item.className = 'group w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl bg-[#0A0A0C] hover:bg-[#17171B] border border-white/[0.06] hover:border-[#52525B] transition-all cursor-pointer text-left';
         item.innerHTML = `
-          <div class="w-9 h-9 rounded-xl bg-[#1E3A8A]/60 border border-[#2B4C9B]/60 flex items-center justify-center shrink-0">
-            <svg class="w-4 h-4 text-[#93C5FD]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <div class="w-9 h-9 rounded-xl bg-[#18181B] border border-[#3F3F46]/70 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-[#E4E4E7]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
           <div class="flex-1 min-w-0">
             <div class="text-sm font-semibold text-white truncate">${escapeHtml(p.name)}</div>
             <div class="flex items-center gap-1.5 text-[11px] min-w-0">
-              <span class="font-mono text-[#60A5FA]">${escapeHtml(p.code)}</span>
-              <span class="text-[#475569]">•</span>
-              <span class="text-[#64748B] truncate">${timeAgoShort(p.lastOpenedAt)}</span>
+              <span class="font-mono text-[#D4D4D8]">${escapeHtml(p.code)}</span>
+              <span class="text-[#52525B]">•</span>
+              <span class="text-[#71717A] truncate">${timeAgoShort(p.lastOpenedAt)}</span>
             </div>
           </div>
-          <button type="button" data-remove="1" title="Quitar de mi lista" class="p-1.5 rounded-lg text-[#64748B] hover:text-rose-400 hover:bg-rose-500/10 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all shrink-0 cursor-pointer">
+          <button type="button" data-remove="1" title="Quitar de mi lista" class="p-1.5 rounded-lg text-[#71717A] hover:text-rose-400 hover:bg-rose-500/10 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all shrink-0 cursor-pointer">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
           </button>`;
         item.addEventListener('click', () => {
@@ -1293,6 +1302,7 @@
       const badge = document.getElementById('my-avatar-badge');
       badge.textContent = getInitials(userName);
       badge.style.backgroundColor = state.userColor;
+      badge.style.color = readableOn(state.userColor);
       try { localStorage.setItem('devboard_username', userName); } catch {}
       rememberProject(slug, state.boardTitle);
       updateProjectChip();
@@ -1935,7 +1945,7 @@
       } else if (status === 'syncing') {
         dot.className += 'bg-amber-400 animate-ping';
       } else {
-        dot.className += 'bg-slate-500';
+        dot.className += 'bg-zinc-500';
       }
     }
 
@@ -2158,8 +2168,8 @@
         return `
           <div
             title="${escapeHtml(m.name)}${isMe ? ' (Tú)' : ' • Conectado'}"
-            style="background-color: ${m.color};"
-            class="w-7 h-7 rounded-full ring-2 ring-[#0F131C] text-[11px] font-bold text-white flex items-center justify-center shadow-md cursor-default select-none"
+            style="background-color: ${m.color}; color: ${readableOn(m.color)};"
+            class="w-7 h-7 rounded-full ring-2 ring-[#0A0A0C] text-[11px] font-bold flex items-center justify-center shadow-md cursor-default select-none"
           >
             ${escapeHtml(getInitials(m.name))}
           </div>
@@ -2168,7 +2178,7 @@
 
       if (members.length > 6) {
         container.innerHTML += `
-          <div class="w-7 h-7 rounded-full ring-2 ring-[#0F131C] bg-slate-800 text-[10px] font-mono font-semibold text-slate-300 flex items-center justify-center">
+          <div class="w-7 h-7 rounded-full ring-2 ring-[#0A0A0C] bg-zinc-800 text-[10px] font-mono font-semibold text-zinc-300 flex items-center justify-center">
             +${members.length - 6}
           </div>
         `;
@@ -2192,10 +2202,10 @@
           el.id = `cursor-${p.sessionId}`;
           el.className = 'remote-cursor';
           el.innerHTML = `
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="${p.color}" stroke="#090B10" stroke-width="1.8">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="${p.color}" stroke="#000000" stroke-width="1.8">
               <path d="M4 3l7.2 17.5 2.6-7.3 7.3-2.6z"/>
             </svg>
-            <div style="background-color: ${p.color};" class="ml-3.5 -mt-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold text-white whitespace-nowrap shadow-lg">
+            <div style="background-color: ${p.color}; color: ${readableOn(p.color)};" class="ml-3.5 -mt-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold whitespace-nowrap shadow-lg">
               ${escapeHtml(p.name)}
             </div>
           `;
@@ -2355,7 +2365,7 @@
                 : `<div class="w-full h-full font-medium whitespace-pre-wrap break-words leading-relaxed">${escapeHtml(el.text) || '<span class="opacity-45 italic text-sm">Doble clic para escribir...</span>'}</div>`
               }
             </div>
-            <div class="pt-2 mt-1 border-t border-white/10 flex items-center justify-between text-[10px] font-mono text-[#94A3B8]">
+            <div class="pt-2 mt-1 border-t border-white/10 flex items-center justify-between text-[10px] font-mono text-[#A1A1AA]">
               <span>@${escapeHtml(el.author || 'Dev')}</span>
             </div>
           </div>
@@ -2367,11 +2377,11 @@
           title: 'text-2xl font-bold tracking-tight',
           subtitle: 'text-lg font-semibold',
           body: 'text-sm font-normal leading-relaxed',
-          code: 'font-mono text-xs leading-relaxed bg-[#0B0D11] border border-[#242936] rounded-xl p-3.5 shadow-xl'
+          code: 'font-mono text-xs leading-relaxed bg-[#0A0A0C] border border-[#26262B] rounded-xl p-3.5 shadow-xl'
         }[variant];
 
         dom.innerHTML = `
-          <div class="w-full h-full p-2 rounded-xl ${variantClasses}" style="color: ${variant === 'code' ? '#F1F5F9' : pal.solid}; ${customFontSize}">
+          <div class="w-full h-full p-2 rounded-xl ${variantClasses}" style="color: ${variant === 'code' ? '#FAFAFA' : pal.solid}; ${customFontSize}">
             ${isEditing
               ? `<textarea class="el-editor" placeholder="Escribe aquí...">${escapeHtml(el.text)}</textarea>`
               : `<div class="w-full h-full whitespace-pre-wrap break-words">${escapeHtml(el.text) || '<span class="opacity-45 italic">Doble clic para escribir...</span>'}</div>`
@@ -2406,7 +2416,7 @@
         `;
       } else if (el.type === 'image') {
         dom.innerHTML = `
-          <div class="w-full h-full rounded-2xl overflow-hidden bg-[#111318] border border-[#242936] shadow-2xl flex flex-col">
+          <div class="w-full h-full rounded-2xl overflow-hidden bg-[#0A0A0C] border border-[#26262B] shadow-2xl flex flex-col">
             <img
               src="${escapeHtml(el.src)}"
               alt="${escapeHtml(el.caption || 'Imagen del equipo')}"
@@ -2557,7 +2567,7 @@
             <g data-svg-id="${el.id}" style="pointer-events: stroke; cursor: pointer;">
               <!-- Hitbox invisible gruesa para selección fácil -->
               <line x1="${sx1}" y1="${sy1}" x2="${sx2}" y2="${sy2}" stroke="transparent" stroke-width="18" />
-              ${isSel ? `<line x1="${sx1}" y1="${sy1}" x2="${sx2}" y2="${sy2}" stroke="#2563EB" stroke-opacity="0.38" stroke-width="9" stroke-linecap="round" />` : ''}
+              ${isSel ? `<line x1="${sx1}" y1="${sy1}" x2="${sx2}" y2="${sy2}" stroke="#E4E4E7" stroke-opacity="0.35" stroke-width="9" stroke-linecap="round" />` : ''}
               <line
                 x1="${sx1}" y1="${sy1}" x2="${sx2}" y2="${sy2}"
                 stroke="${pal.solid}"
@@ -2568,7 +2578,7 @@
               />
               ${el.label ? `
                 <g transform="translate(${midX}, ${midY})">
-                  <rect x="-42" y="-12" width="84" height="24" rx="8" fill="#111318" stroke="${pal.solid}" stroke-width="1.2" />
+                  <rect x="-42" y="-12" width="84" height="24" rx="8" fill="#0A0A0C" stroke="${pal.solid}" stroke-width="1.2" />
                   <text x="0" y="4" text-anchor="middle" fill="#FFFFFF" font-size="11" font-family="JetBrains Mono, monospace">${escapeHtml(el.label)}</text>
                 </g>
               ` : ''}
@@ -2579,7 +2589,7 @@
           strokeHTML += `
             <g data-svg-id="${el.id}" style="pointer-events: stroke; cursor: pointer;">
               <path d="${d}" fill="none" stroke="transparent" stroke-width="18" stroke-linecap="round" />
-              ${isSel ? `<path d="${d}" fill="none" stroke="#2563EB" stroke-opacity="0.38" stroke-width="${(el.strokeWidth || 3) + 8}" stroke-linecap="round" stroke-linejoin="round" />` : ''}
+              ${isSel ? `<path d="${d}" fill="none" stroke="#E4E4E7" stroke-opacity="0.35" stroke-width="${(el.strokeWidth || 3) + 8}" stroke-linecap="round" stroke-linejoin="round" />` : ''}
               <path d="${d}" fill="none" stroke="${pal.solid}" stroke-width="${el.strokeWidth || 3}" stroke-linecap="round" stroke-linejoin="round" />
             </g>
           `;
@@ -2836,9 +2846,9 @@
           { key: 'code', label: '</> Código' }
         ];
         const wrap = document.createElement('div');
-        wrap.className = 'flex items-center gap-1 border-l border-[#242936] pl-2 ml-1';
+        wrap.className = 'flex items-center gap-1 border-l border-[#26262B] pl-2 ml-1';
         wrap.innerHTML = variants.map((v) => `
-          <button type="button" data-variant="${v.key}" class="px-2 py-1 rounded-lg text-[11px] font-medium transition-colors ${curVar === v.key ? 'bg-[#1E3A8A] text-white border border-[#2B4C8C]' : 'text-[#94A3B8] hover:text-white hover:bg-white/10'}">
+          <button type="button" data-variant="${v.key}" class="px-2 py-1 rounded-lg text-[11px] font-medium transition-colors ${curVar === v.key ? 'bg-[#D4D4D8] text-[#09090B] border border-[#3F3F46]' : 'text-[#A1A1AA] hover:text-white hover:bg-white/10'}">
             ${v.label}
           </button>
         `).join('');
@@ -2867,9 +2877,9 @@
           { key: 'diamond', label: 'Rombo' }
         ];
         const wrap = document.createElement('div');
-        wrap.className = 'flex items-center gap-1 border-l border-[#242936] pl-2 ml-1';
+        wrap.className = 'flex items-center gap-1 border-l border-[#26262B] pl-2 ml-1';
         wrap.innerHTML = kinds.map((k) => `
-          <button type="button" data-kind="${k.key}" class="px-2 py-1 rounded-lg text-[11px] font-medium transition-colors ${curKind === k.key ? 'bg-[#1E3A8A] text-white border border-[#2B4C8C]' : 'text-[#94A3B8] hover:text-white hover:bg-white/10'}">
+          <button type="button" data-kind="${k.key}" class="px-2 py-1 rounded-lg text-[11px] font-medium transition-colors ${curKind === k.key ? 'bg-[#D4D4D8] text-[#09090B] border border-[#3F3F46]' : 'text-[#A1A1AA] hover:text-white hover:bg-white/10'}">
             ${k.label}
           </button>
         `).join('');
@@ -2890,9 +2900,9 @@
         });
       } else if (activeMode === 'connector' && firstSel?.type === 'connector') {
         const wrap = document.createElement('div');
-        wrap.className = 'flex items-center gap-1 border-l border-[#242936] pl-2 ml-1';
+        wrap.className = 'flex items-center gap-1 border-l border-[#26262B] pl-2 ml-1';
         wrap.innerHTML = `
-          <button type="button" id="ctx-dash-btn" class="px-2 py-1 rounded-lg text-[11px] font-medium transition-colors ${firstSel.dashed ? 'bg-[#1E3A8A] text-white border border-[#2B4C8C]' : 'text-[#94A3B8] hover:text-white hover:bg-white/10'}">
+          <button type="button" id="ctx-dash-btn" class="px-2 py-1 rounded-lg text-[11px] font-medium transition-colors ${firstSel.dashed ? 'bg-[#D4D4D8] text-[#09090B] border border-[#3F3F46]' : 'text-[#A1A1AA] hover:text-white hover:bg-white/10'}">
             ${firstSel.dashed ? 'Línea punteada' : 'Línea sólida'}
           </button>
         `;
@@ -2907,9 +2917,9 @@
         const curW = firstSel?.strokeWidth || state.activeStrokeWidth;
         const widths = [2, 4, 6];
         const wrap = document.createElement('div');
-        wrap.className = 'flex items-center gap-1 border-l border-[#242936] pl-2 ml-1';
+        wrap.className = 'flex items-center gap-1 border-l border-[#26262B] pl-2 ml-1';
         wrap.innerHTML = widths.map((w) => `
-          <button type="button" data-sw="${w}" class="px-2 py-1 rounded-lg text-[11px] font-mono transition-colors ${curW === w ? 'bg-[#1E3A8A] text-white border border-[#2B4C8C]' : 'text-[#94A3B8] hover:text-white hover:bg-white/10'}">
+          <button type="button" data-sw="${w}" class="px-2 py-1 rounded-lg text-[11px] font-mono transition-colors ${curW === w ? 'bg-[#D4D4D8] text-[#09090B] border border-[#3F3F46]' : 'text-[#A1A1AA] hover:text-white hover:bg-white/10'}">
             ${w}px
           </button>
         `).join('');
@@ -2948,11 +2958,11 @@
       if (firstSel && ['sticky', 'text', 'shape'].includes(firstSel.type)) {
         const curSize = firstSel.fontSize || 14;
         const sizeControls = document.createElement('div');
-        sizeControls.className = 'flex items-center gap-1 border-l border-[#242936] pl-2 ml-1';
+        sizeControls.className = 'flex items-center gap-1 border-l border-[#26262B] pl-2 ml-1';
         sizeControls.innerHTML = `
-          <button type="button" id="ctx-font-dec" title="Reducir letra" class="px-1.5 py-0.5 rounded bg-[#191D26] hover:bg-[#242936] text-[11px] font-mono text-white">A-</button>
-          <span class="text-[11px] font-mono text-[#94A3B8] min-w-[26px] text-center">${curSize}</span>
-          <button type="button" id="ctx-font-inc" title="Aumentar letra" class="px-1.5 py-0.5 rounded bg-[#191D26] hover:bg-[#242936] text-[11px] font-mono text-white">A+</button>
+          <button type="button" id="ctx-font-dec" title="Reducir letra" class="px-1.5 py-0.5 rounded bg-[#18181B] hover:bg-[#26262B] text-[11px] font-mono text-white">A-</button>
+          <span class="text-[11px] font-mono text-[#A1A1AA] min-w-[26px] text-center">${curSize}</span>
+          <button type="button" id="ctx-font-inc" title="Aumentar letra" class="px-1.5 py-0.5 rounded bg-[#18181B] hover:bg-[#26262B] text-[11px] font-mono text-white">A+</button>
         `;
         extraEl.appendChild(sizeControls);
         sizeControls.querySelector('#ctx-font-dec').addEventListener('click', () => {
@@ -3441,7 +3451,7 @@
       inp.placeholder = 'Etiqueta (ej. API)...';
       inp.style.left = `${sx - 60}px`;
       inp.style.top = `${sy - 16}px`;
-      inp.className = 'fixed z-50 px-2.5 py-1 rounded-lg bg-[#151820] border border-[#2563EB] text-xs font-mono text-white shadow-xl focus:outline-none w-32';
+      inp.className = 'fixed z-50 px-2.5 py-1 rounded-lg bg-[#101013] border border-[#A1A1AA] text-xs font-mono text-white shadow-xl focus:outline-none w-32';
       document.body.appendChild(inp);
       inp.focus();
 
@@ -3657,9 +3667,9 @@
       const ctx = canvas.getContext('2d');
 
       // Fondo oscuro mate + puntos
-      ctx.fillStyle = '#08090B';
+      ctx.fillStyle = '#000000';
       ctx.fillRect(0, 0, w, h);
-      ctx.fillStyle = '#1C2029';
+      ctx.fillStyle = '#1B1B1F';
       for (let gx = 0; gx < w; gx += 28) {
         for (let gy = 0; gy < h; gy += 28) {
           ctx.beginPath();
@@ -3719,7 +3729,7 @@
         }
 
         if (e.text) {
-          ctx.fillStyle = '#F8FAFC';
+          ctx.fillStyle = '#FAFAFA';
           ctx.font = e.variant === 'code' ? '13px monospace' : '600 14px Inter, sans-serif';
           const lines = e.text.split('\n');
           lines.forEach((line, idx) => {
@@ -3834,6 +3844,7 @@
         const badge = document.getElementById('my-avatar-badge');
         badge.textContent = getInitials(name);
         badge.style.backgroundColor = state.userColor;
+        badge.style.color = readableOn(state.userColor);
         try { localStorage.setItem('devboard_username', name); } catch {}
         profileModal.classList.add('hidden');
         announcePresenceToRoom();

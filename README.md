@@ -77,6 +77,9 @@ Atajos de teclado · Limpiar pizarrón.
 - HTML + JavaScript (módulo) + Tailwind CSS — un solo archivo `index.html`.
 - [MQTT.js 5](https://github.com/mqttjs/MQTT.js) sobre WebSocket seguro,
   conectado en malla a 4 brokers públicos con failover por broker.
+- Identidad visual **Silverline**: negro mate + paleta plata (zinc), botones
+  primarios con degradado plata y texto oscuro — mismos colores que la web de
+  Silverline Games, sin efectos 3D.
 - Sin backend, sin cuentas y sin claves.
 
 ---
